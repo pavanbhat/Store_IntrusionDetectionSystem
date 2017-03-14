@@ -1,16 +1,6 @@
 # All imports here
 import random
 
-
-############################################################################################################################################################
-# Ignore this part as this was only used for reference
-# for i in range(0):
-#     print()
-#     q1 = "SELECT * from customers;"
-#     q2 = "INSERT INTO COMPANY(ID, NAME, AGE, ADDRESS, SALARY, JOIN_DATE) VALUES(1, 'Paul', 32, 'California', 20000.00, '2001-07-13');"
-#     q3 = "INSERT INTO COMPANY(ID, NAME, AGE, ADDRESS, SALARY, JOIN_DATE) VALUES(1, 'Paul', 32, 'California', 20000.00, '2001-07-13');"
-#############################################################################################################################################################
-
 class QGenerator:
         '''
         A class that assists in auto-generating queries for the template generator
