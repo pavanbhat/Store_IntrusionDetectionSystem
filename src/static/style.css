@@ -1,0 +1,18 @@
+h1{
+    display:inline;
+    color: deepskyblue;
+    text-align: center;
+
+}
+
+#greeting{
+    text-align: center;
+    float:right;
+}
+
+div{
+    align-content: center;
+}
+.btn:hover {
+  background-color: deepskyblue;
+}
