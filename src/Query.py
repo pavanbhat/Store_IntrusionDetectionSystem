@@ -7,7 +7,7 @@ import WebUI
 
 import sqlalchemy
 
-WebUI.app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Rufus862479513@pdv@localhost/store'
+WebUI.app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:@localhost/store'
 db = SQLAlchemy(WebUI.app)
 
 # class User()
