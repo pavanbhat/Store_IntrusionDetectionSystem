@@ -1,12 +1,21 @@
 # All imports here
+from flask_sqlalchemy import SQLAlchemy
 import psycopg2 as pg
 import psycopg2.extras as ex
 
+import WebUI
 
-conn = pg.connect("dbname='test' user='postgres' password='Rufus862479513@pdv' host='localhost'")
+import sqlalchemy
+
+WebUI.app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Rufus862479513@pdv@localhost/store'
+db = SQLAlchemy(WebUI.app)
+
+# class User()
+
+conn = pg.connect("dbname='postgres' user='postgres' password='Rufus862479513@pdv' host='localhost'")
 
 cur = conn.cursor()
-cur.execute("INSERT INTO products(ID, USERID, NAME, PRICE, ADDRESS, CATEGORY) VALUES(121, 1078, 'Paridhi', 497.4, 'Delhi', 'Bag');")
+cur.execute("INSERT INTO products(ID, USERID, NAME, PRICE, ADDRESS, CATEGORY) VALUES(132, 1081, 'Swapnil', 497.4, 'Delhi', 'laptop');")
 conn.commit()
 cur.execute("select * from products")
 

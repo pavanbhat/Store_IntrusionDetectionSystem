@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='store_style.css')}}">
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    {% block scripts %}
+    <script>
+        var postData = []
+        var my_func = function (id) {
+            alert(id);
+            var productName = "";
+            var price = 0;
+            var category = "";
+            switch (id) {
+                case "prod1":
+                    productName = "Google Nexus";
+                    price = 650.0;
+                    category = "Mobile";
+                    break;
+                default:
+                    break;
+            }
+            var dummy = "Pavan"
+            var dataObj = {"name": productName, "price": price, "category": category};
+            postData.push(dataObj);
+            alert("Hello ");
+            $('summary').innerHTML = "Hello ";
+            $.post("/post_string", {
+                var1: dummy
+            });
+
+            $.get("/getpythondata", function (data) {
+                /*var items = [];
+                $.each(data, function (key, val) {
+                    items.push("<p id='" + key + "'>" + val + "</p>");
+                });*/
+//                document.getElementById("summary").innerText = temp.name;
+                document.getElementById("summary").innerHTML = $.parseJSON(JSON.stringify(data));
+            });
+
+
+        }
+    </script>
+    {% endblock %}
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class='flashes'>
+        {% for message in messages %}
+        <li>Message: {{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</head>
+<body>
+<div class="banner">
+    <img id="ban" alt="Store Banner" src="../static/images/banner.jpg">
+</div>
+
+<div class=".container">
+
+    <div class="row" id="topProd">
+        <div id="prod1" class="products">
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
+                    <div class="caption">
+                        <center><h3>General Mobile GM 4G</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-primary" role="button" onclick="my_func('prod1')">Button</a>
+                                <a href="#" class="btn btn-default" role="button">Button</a></p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prod2" class="products">
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
+                    <div class="caption">
+                        <center><h3>General Mobile GM 4G</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#"
+                                                                                               class="btn btn-default"
+                                                                                               role="button">Button</a>
+                            </p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prod3" class="products">
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
+                    <div class="caption">
+                        <center><h3>General Mobile GM 4G</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#"
+                                                                                               class="btn btn-default"
+                                                                                               role="button">Button</a>
+                            </p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prod4" class="products">
+            <div class="col-sm-3 col-md-3">
+                <fieldset>
+                    <legend>Shopping Summary</legend>
+                    <!--<p id="summary"> {% if delta == "hey" %} {{ delta }}{% else %} Did not get anything {% endif %} </p>-->
+                    <p id="summary"></p>
+
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="prod5" class="products">
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
+                    <div class="caption">
+                        <center><h3>General Mobile GM 4G</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#"
+                                                                                               class="btn btn-default"
+                                                                                               role="button">Button</a>
+                            </p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prod6" class="products">
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
+                    <div class="caption">
+                        <center><h3>General Mobile GM 4G</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#"
+                                                                                               class="btn btn-default"
+                                                                                               role="button">Button</a>
+                            </p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prod7" class="products">
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
+                    <div class="caption">
+                        <center><h3>General Mobile GM 4G</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#"
+                                                                                               class="btn btn-default"
+                                                                                               role="button">Button</a>
+                            </p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prod8" class="products">
+            <div class="col-sm-3 col-md-3">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="prod9" class="products">
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
+                    <div class="caption">
+                        <center><h3>General Mobile GM 4G</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#"
+                                                                                               class="btn btn-default"
+                                                                                               role="button">Button</a>
+                            </p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prod10" class="products">
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
+                    <div class="caption">
+                        <center><h3>General Mobile GM 4G</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#"
+                                                                                               class="btn btn-default"
+                                                                                               role="button">Button</a>
+                            </p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prod11" class="products">
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
+                    <div class="caption">
+                        <center><h3>General Mobile GM 4G</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#"
+                                                                                               class="btn btn-default"
+                                                                                               role="button">Button</a>
+                            </p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prod12" class="products">
+            <div class="col-sm-3 col-md-3">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

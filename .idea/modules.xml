@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/QueryGenerator.iml" filepath="$PROJECT_DIR$/.idea/QueryGenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Store_IntrusionDetectionSystem.iml" filepath="$PROJECT_DIR$/.idea/Store_IntrusionDetectionSystem.iml" />
     </modules>
   </component>
 </project>

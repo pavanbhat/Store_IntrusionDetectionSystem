@@ -1,18 +1,17 @@
 h1{
-    display:inline;
-    color: deepskyblue;
-    text-align: center;
-
-}
-
-#greeting{
-    text-align: center;
-    float:right;
+    color: red;
 }
 
 div{
     align-content: center;
 }
+
 .btn:hover {
   background-color: deepskyblue;
 }
+
+fieldset{
+    margin-top: 20%;
+    display: inline-block;
+}
+
