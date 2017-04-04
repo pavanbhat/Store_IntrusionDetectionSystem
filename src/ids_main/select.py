@@ -2,7 +2,6 @@ class Select:
 
     def __init__(self):
         Keyword.__init__('SELECT')
-        self.table = None
         self.column = []
         self.FROM = None
         self.WHERE = None
@@ -25,7 +24,8 @@ class Select:
         fromData = ""
         while query[index] != 'WHERE':
             fromData += query[index] + " "
-        self.FROM = From(fromData)
+        self.FROM = From()
+        self.FROM.parse(fromData.strip())
 
         # parsing WHERE data
         # TODO handle nested statements for WHERE

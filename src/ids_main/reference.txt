@@ -2,10 +2,11 @@
 
 queries for our application:
 
-SELECT * from products where id=1 and category="Mobile";
+SELECT * FROM products WHERE id=1 and category="Mobile";
 INSERT INTO products(id, name, price, category) VALUES(1, 'Google Nexus', 650, 'Mobile');
+DELETE FROM carts WHERE id = 1;
+
 DROP table products;
-DELETE from products where id = 1;
 
 
 multiples queries:

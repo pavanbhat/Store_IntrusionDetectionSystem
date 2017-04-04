@@ -8,4 +8,3 @@ class Template:
 
     def templateMatch(self, query):
         pass
-        
