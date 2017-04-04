@@ -1,8 +1,7 @@
 # All imports here
-from flask import Flask, session, render_template, flash, request, json
-from flask_responses import json_response
-import jsonify
 import os
+
+from flask import Flask, session, render_template, flash, request, json
 
 # Flask App
 app = Flask(__name__)
@@ -57,7 +56,8 @@ def post_string():
 
 @app.route('/getpythondata')
 def get_python_data():
-    return json_response({"message": "Hello World!"}, status_code=201)
+    obj = [{"name": "Hello World!"}, {"name": "Pavan"}]
+    return json.dumps(obj)
 
 @app.route("/admin/<username>", methods=['POST'])
 def homepage(username=None):

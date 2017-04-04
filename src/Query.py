@@ -12,7 +12,7 @@ db = SQLAlchemy(WebUI.app)
 
 # class User()
 
-conn = pg.connect("dbname='postgres' user='postgres' password='Rufus862479513@pdv' host='localhost'")
+conn = pg.connect("dbname='postgres' user='postgres' password='pass123' host='localhost'")
 
 cur = conn.cursor()
 cur.execute("INSERT INTO products(ID, USERID, NAME, PRICE, ADDRESS, CATEGORY) VALUES(132, 1081, 'Swapnil', 497.4, 'Delhi', 'laptop');")
