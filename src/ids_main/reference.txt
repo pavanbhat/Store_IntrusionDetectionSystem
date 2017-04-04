@@ -1,0 +1,19 @@
+** DELETE this file before production **
+
+queries for our application:
+
+SELECT * from products where id=1 and category="Mobile";
+INSERT INTO products(id, name, price, category) VALUES(1, 'Google Nexus', 650, 'Mobile');
+DROP table products;
+DELETE from products where id = 1;
+
+
+multiples queries:
+
+SELECT sub.*
+  FROM (
+        SELECT *
+          FROM tutorial.sf_crime_incidents_2014_01
+         WHERE day_of_week = 'Friday'
+       ) sub
+ WHERE sub.resolution = 'NONE'

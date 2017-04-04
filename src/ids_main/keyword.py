@@ -1,7 +1,6 @@
 class Keyword:
 
-    def __init__(self, key):
-        self.initialize_keywords()
+    def __init__(self):
         self.setKey(key)
 
     # initialize_keywords creates hashmap of all SQL keywords
