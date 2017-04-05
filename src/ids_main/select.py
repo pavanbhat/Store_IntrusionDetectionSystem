@@ -2,8 +2,7 @@ class Select:
 
     def __init__(self):
         Keyword.__init__('SELECT')
-        self.column = []
-        self.FROM = None
+        self.FROM = []
         self.WHERE = None
 
     # SELECT column1, column2, ...
@@ -14,18 +13,21 @@ class Select:
 
         # Parsing columns
         index = 0
+        fromIndex = size(self.FROM)
+        column = []
         while query[index] != 'FROM':
-            self.column.append(query[index])
+            column.append(query[index])
             index += 1
+        self.FORM[fromIndex].setColumn([column])
 
         # parsing FROM data
         # TODO handle nested statements in FROM
         index += 1
         fromData = ""
-        while query[index] != 'WHERE':
+        while query[index] != 'WHERE':)
             fromData += query[index] + " "
-        self.FROM = From()
-        self.FROM.parse(fromData.strip())
+        self.FROM.append(From())
+        self.FROM[].parse(fromData.strip())
 
         # parsing WHERE data
         # TODO handle nested statements for WHERE
@@ -33,14 +35,9 @@ class Select:
         whereData = ""
         while query[index] != 'WHERE':
             fromData += query[index] + " "
-        self.WHERE = Where(whereData)
+        self.FROM[fromIndex].populateWhere(whereData);
+
 
     # Overriding = comparator
     def __eq__(self, other):
-        if set(self.column) != set(other.column):
-            return False
-        #check FROM and WHERE data are same
-        if (self.FROM == other.FROM) and \
-            (self.WHERE == other.WHERE):
-            return True
-        return False
+        # check for matching FROM nodes
