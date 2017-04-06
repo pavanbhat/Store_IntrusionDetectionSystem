@@ -1,26 +1,29 @@
 ###
-
-Parser's the SQL query
-
+#
+# Parser's the SQL query
+#
 ###
 
 import socket
 import sys
-import Query from query_parser
+import os
+from template import Template
 
 
-class IDS():
+class IDS:
 
-    def __init__(self, query):
-        pass
+    def __init__(self):
+        template = Template()
+        path = os.getcwd() + "/train.txt"
+        template.train(path)
+        template.templateMatch('SELECT * FROM products WHERE id=1 and category="Mobile"')
 
     ###
-    Listens at a perticular port listening to for the connection
-    from the user end of the applicationself.
-    Binds to port 9999
-
-    saves the connection in self.app and the server address in self.appAddr
-
+    # Listens at a perticular port listening to for the connection
+    # from the user end of the applicationself.
+    # Binds to port 9999
+    #
+    # saves the connection in self.app and the server address in self.appAddr
     ###
     def connectToApplication(self):
         # Create a TCP/IP socket
@@ -34,18 +37,22 @@ class IDS():
 
 
     ###
-    Receives upto 2048 bytes of data from the client application.
-    Any SQL query wont be more than 2048 bytes.
+    # Receives upto 2048 bytes of data from the client application.
+    # Any SQL query wont be more than 2048 bytes.
     ###
     def recvData(self):
         return self.app.recv(2048)
 
 
     ###
-    callQueryNode function passes the query to the query parser.
-    This class parsers the query and updates it the form of node.
-    Which could be further used to create template
+    # callQueryNode function passes the query to the query parser.
+    # This class parsers the query and updates it the form of node.
+    # Which could be further used to create template
     ###
     def callQueryNode(self, query):
         #parse query
-        query = Query(query)
+        #query = Query(query)
+        pass
+
+if __name__ == '__main__':
+    ids = IDS()

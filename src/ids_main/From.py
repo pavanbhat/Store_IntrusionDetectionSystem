@@ -1,15 +1,15 @@
 # From class reponsible of parsing from data
+from ids_main.where import WHERE
 
-class From:
+class FROM:
 
-    def __init__(self, queryData):
-        self.queryData = queryData
+    def __init__(self):
         self.table = ""
         self.WHERE = []
         self.column = []
         self.SELECT = None
 
-    def parse(queryData = self.queryData):
+    def parse(self, queryData):
         # TODO
         # Detect multiple select statement
 
@@ -19,9 +19,9 @@ class From:
     def setColumn(self, column):
         self.column.append(column)
 
-    def poplateWhere(self, wheredata):
-        self.WHERE.append(WHERE(fromData.strip()))
-        self.WHERE[size(self.WHERE)-1].parse()
+    def poplateWhere(self, whereData):
+        self.WHERE.append(WHERE())
+        self.WHERE[len(self.WHERE)-1].parse(whereData.strip())
 
     # Overriding = comparator
     def __eq__(self, other):

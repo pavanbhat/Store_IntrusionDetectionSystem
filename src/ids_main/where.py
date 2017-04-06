@@ -1,21 +1,22 @@
 import re
 
-class From:
+class WHERE:
 
-    def __init__(self, queryData):
-        self.queryData = queryData
+    def __init__(self):
         self.attributes = []
 
-    def parse(queryData = self.queryData):
+    def parse(self, queryData):
+        print "where parse:", queryData
         # TODO
         # Detect multiple select statement and handle
 
         # no nested statments, so multiple conditions
-        queryData = re.split('and | or | AND | OR')
+        self.queryData = queryData
+        queryData = re.split('and | or | AND | OR', queryData)
 
         for conditions in queryData:
-            rvalue, lvalue = re.split('<|>|=| = | > | <')
-            attributes.append(rvalue)
+            rvalue, lvalue = re.split('<|>|=| = | > | <', conditions)
+            self.attributes.append(rvalue)
 
     # Overriding = comparator
     def __eq__(self, other):

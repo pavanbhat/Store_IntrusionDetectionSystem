@@ -1,0 +1,1 @@
+SELECT * FROM products1 WHERE id=1 and category="Mobile";
