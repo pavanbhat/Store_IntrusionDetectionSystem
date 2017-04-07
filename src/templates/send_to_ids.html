@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intrusion Detection Phase</title>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <style>
+        #progress {
+            width: 100%;
+            background-color: grey;
+        }
+
+        #bar {
+            width: 1%;
+            height: 30px;
+            background-color: green;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            /*$("#bar").progressbar({
+             value: 37
+             });*/
+            window.onload = progress_bar();
+        });
+
+        var progress_bar = function () {
+            var width = 1;
+            var id = setInterval(setFrame, 10);
+
+            function setFrame() {
+                if (width >= 100) {
+                    clearInterval(id);
+                } else {
+                    width++;
+                    document.getElementById("bar").style.width = width + '%';
+                }
+            }
+        }
+
+    </script>
+</head>
+<body>
+<h2>Sending and Retrieving Data in IDS</h2>
+<div id="progress">
+    <div id="bar"></div>
+</div>
+</body>
+</html>

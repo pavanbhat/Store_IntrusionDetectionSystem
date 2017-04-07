@@ -38,7 +38,6 @@ def login(user=None):
 
 data_send = []
 
-
 @app.route('/post_product', methods=['GET', 'POST'])
 def post_string():
     try:
@@ -78,6 +77,26 @@ def remove_product():
 def get_python_data():
     global data_send
     return json.dumps([obj.dump() for obj in data_send])
+
+
+@app.route('/call_ids', methods=['GET', 'POST'])
+def call_ids():
+    try:
+        # info = str(request.form['shop_info'])
+        # print("Got the information!" + info)
+        return send_to_ids()
+    except Exception as e:
+        flash(e)
+
+
+@app.route("/admin/send_to_ids", methods=['POST'])
+def send_to_ids():
+    '''
+
+    :param username:
+    :return:
+    '''
+    return render_template("send_to_ids.html")
 
 @app.route("/admin/<username>", methods=['POST'])
 def homepage(username=None):

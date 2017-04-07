@@ -42,7 +42,7 @@
                 case "prod5":
                     product_id = pid;
                     productName = $("#prod5").find(".title").text();
-                    price = parseInt($("#prod5").find(".prod_price").text());
+                    price = $("#prod5").find(".prod_price").text();
                     category = "Keyboard";
                     break;
                 case "prod6":
@@ -54,7 +54,7 @@
                 case "prod7":
                     product_id = pid;
                     productName = $("#prod7").find(".title").text();
-                    price = parseInt($("#prod7").find(".prod_price").text());
+                    price = $("#prod7").find(".prod_price").text();
                     category = "Headphones";
                     break;
                 case "prod9":
@@ -66,7 +66,7 @@
                 case "prod10":
                     product_id = pid;
                     productName = $("#prod10").find(".title").text();
-                    price = parseInt($("#prod10").find(".prod_price").text());
+                    price = $("#prod10").find(".prod_price").text();
                     category = "Charger";
                     break;
                 case "prod11":
@@ -158,7 +158,21 @@
 
         var send_to_ids = function (id) {
             alert("Inserting");
+            $.ajax({
+                url: '/call_ids',
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function (response) {
+                    //I need to some how be able to populate my table with the returned list called jobs;
+//                    alert("Received: " + response);
+                    location.href = "{{url_for('send_to_ids')}}"
+                }
+                /*error: function (error) {
+                 alert(error);
+                 }*/
+            });
         }
+
 
     </script>
     {% endblock %}
@@ -176,7 +190,7 @@
                     <div class="thumbnail">
                         <img src="../static/images/mobile01.jpeg" alt="Mobile">
                         <div class="caption">
-                            <center><h3 class="title">LG Google Nexus 5X 16GB</h3>
+                            <center><h3 class="title">LG Google Nexus Phone 5X 16GB</h3>
                                 <p>Price: $ <span class="prod_price">269.00</span></p>
                                 <p><a href="#prod1" class="btn btn-primary" role="button"
                                       onclick="add_product('prod1')">
@@ -361,12 +375,15 @@
     <div class="col-sm-3 col-md-3">
         <div id="prod4" class="products">
             <fieldset>
-                <legend>Shopping Summary</legend>
+                <legend id="shop_info">Shopping Summary</legend>
                 <!--<p id="summary"> {% if delta == "hey" %} {{ delta }}{% else %} Did not get anything {% endif %} </p>-->
                 <table id="summary">
                 </table>
-
-                <a href="#prod4" class="btn btn-primary" role="button" onclick="send_to_ids('prod4')">Checkout</a>
+                <br>
+                <form method="post" action="/admin/send_to_ids">
+                    <input type="submit" value="Checkout" class="btn btn-primary btn-small btn-block">
+                    <!--<a href="#prod4" class="btn btn-primary" role="button" onclick="send_to_ids('prod4')">Checkout</a>-->
+                </form>
 
             </fieldset>
         </div>

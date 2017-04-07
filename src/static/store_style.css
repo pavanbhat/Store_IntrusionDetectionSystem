@@ -1,12 +1,24 @@
-#topProd { padding-top: 2em; }
+#topProd {
+    padding-top: 2em;
+}
 
-#ban{
+#ban {
     width: 100%;
     height: 10%;
 }
 
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
 .prod_rows:hover {
     background-color: deepskyblue;
+}
+
+#prod6 {
+    height: 80%;
 }
 
 .products {
