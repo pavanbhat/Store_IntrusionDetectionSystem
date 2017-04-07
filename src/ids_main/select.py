@@ -52,7 +52,8 @@ class SELECT():
     def __eq__(self, other):
         # check for matching FROM nodes
         for curr in self.FROM:
-            if curr == other.FROM[0]:
+            print curr.table
+            if curr in other.FROM:
                 print "MATCHED"
                 return True
         print "NOT MATCHED"

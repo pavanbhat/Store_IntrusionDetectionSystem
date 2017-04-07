@@ -1,1 +1,3 @@
-SELECT * FROM products1 WHERE id=1 and category="Mobile";
+SELECT * FROM products1 WHERE id1=1 and category="Mobile"
+SELECT * FROM products1 WHERE id=1 and category="Mobile"
+SELECT * FROM products WHERE id=1 and category="Mobile"

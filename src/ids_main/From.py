@@ -25,4 +25,7 @@ class FROM:
 
     # Overriding = comparator
     def __eq__(self, other):
+        for where in self.WHERE:
+            if where not in other.WHERE:
+                return False
         return self.table == other.table

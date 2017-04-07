@@ -13,10 +13,14 @@ from template import Template
 class IDS:
 
     def __init__(self):
-        template = Template()
+        self.template = Template()
+
+    def trainTemplate(self, path=""):
         path = os.getcwd() + "/train.txt"
-        template.train(path)
-        template.templateMatch('SELECT * FROM products WHERE id=1 and category="Mobile"')
+        self.template.train(path)
+
+    def detection(self):
+        self.template.checkMatch('SELECT * FROM products1 WHERE id1=1 and category="Mobile"')
 
     ###
     # Listens at a perticular port listening to for the connection
@@ -56,3 +60,5 @@ class IDS:
 
 if __name__ == '__main__':
     ids = IDS()
+    ids.trainTemplate()
+    ids.detection()
