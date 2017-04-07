@@ -20,7 +20,7 @@ class IDS:
         self.template.train(path)
 
     def detection(self):
-        self.template.checkMatch('SELECT * FROM products1 WHERE id1=1 and category="Mobile"')
+        self.template.checkMatch("INSERT INTO products(id, name, price, category) VALUES(1, 'Google Nexus', 650, 'Mobile');")
 
     ###
     # Listens at a perticular port listening to for the connection
