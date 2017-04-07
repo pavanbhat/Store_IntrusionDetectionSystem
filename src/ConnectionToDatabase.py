@@ -1,11 +1,8 @@
 # All imports here
-from flask_sqlalchemy import SQLAlchemy
 import psycopg2 as pg
-import psycopg2.extras as ex
+from flask_sqlalchemy import SQLAlchemy
 
 import WebUI
-
-import sqlalchemy
 
 WebUI.app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:@localhost/store'
 db = SQLAlchemy(WebUI.app)

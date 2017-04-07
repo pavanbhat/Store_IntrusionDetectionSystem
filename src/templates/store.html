@@ -13,81 +13,151 @@
             crossorigin="anonymous"></script>
     {% block scripts %}
     <script>
-        var postData = [];
+        var pid = 0;
+        var pid_list = [];
         var add_product = function (id) {
+            var product_id = 0;
             var productName = "";
-            var price = 0;
+            var price = "";
             var category = "";
             switch (id) {
                 case "prod1":
-                    productName = "Google Nexus";
-                    price = 650.0;
+                    product_id = pid;
+                    productName = $("#prod1").find(".title").text();
+                    price = $("#prod1").find(".prod_price").text();
                     category = "Mobile";
+                    break;
+                case "prod2":
+                    product_id = pid;
+                    productName = $("#prod2").find(".title").text();
+                    price = $("#prod2").find(".prod_price").text();
+                    category = "Laptop";
+                    break;
+                case "prod3":
+                    product_id = pid;
+                    productName = $("#prod3").find(".title").text();
+                    price = $("#prod3").find(".prod_price").text();
+                    category = "Mouse";
+                    break;
+                case "prod5":
+                    product_id = pid;
+                    productName = $("#prod5").find(".title").text();
+                    price = parseInt($("#prod5").find(".prod_price").text());
+                    category = "Keyboard";
+                    break;
+                case "prod6":
+                    product_id = pid;
+                    productName = $("#prod6").find(".title").text();
+                    price = $("#prod6").find(".prod_price").text();
+                    category = "CD";
+                    break;
+                case "prod7":
+                    product_id = pid;
+                    productName = $("#prod7").find(".title").text();
+                    price = parseInt($("#prod7").find(".prod_price").text());
+                    category = "Headphones";
+                    break;
+                case "prod9":
+                    product_id = pid;
+                    productName = $("#prod9").find(".title").text();
+                    price = $("#prod9").find(".prod_price").text();
+                    category = "Shoes";
+                    break;
+                case "prod10":
+                    product_id = pid;
+                    productName = $("#prod10").find(".title").text();
+                    price = parseInt($("#prod10").find(".prod_price").text());
+                    category = "Charger";
+                    break;
+                case "prod11":
+                    product_id = pid;
+                    productName = $("#prod11").find(".title").text();
+                    price = $("#prod11").find(".prod_price").text();
+                    category = "Kindle";
                     break;
                 default:
                     break;
             }
-            var dummy = "Pavan";
-            var dataObj = {"name": productName, "price": price, "category": category};
-            postData.push(dataObj);
-            $('summary').innerHTML = "Hello ";
-            $.post("/post_string", {
-                var1: dummy
-            });
 
-            $.getJSON("/getpythondata", function (data) {
+            josn_data = {"pid": product_id, "name": productName, "price": price, "category": category};
+            do_post(josn_data);
+            get_post();
+            pid++;
+        };
+
+        var do_post = function (json_data) {
+            $.post("/post_product", json_data, function (data) {
+                console.log(data);
+            });
+        };
+
+        var get_post = function () {
+            $.get("/getpythondata", function (data) {
                 /*var items = [];
                  $.each(data, function (key, val) {
                  items.push("<p id='" + key + "'>" + val + "</p>");
                  });*/
 //                document.getElementById("summary").innerText = temp.name;
-//                var obj = JSON.parse(data)
-                var my_name = [];
-                for (var i in data) {
-                    my_name.push(data[i]);
-                }
+                document.getElementById("summary").innerHTML = "<tr><th>Product Name</th><th>Price</th><th>Category</th></tr>";
+                var obj = $.parseJSON(data);
                 var val = "";
-                for (var i = 0; i < my_name.length; i++) {
-                    val += my_name.pop().name + " ";
+                for (var i = 0; i < obj.length; i++) {
+                    val += "<tr class='prod_rows' id='p" + i.toString() + "' onclick='rmv_prod(" + i.toString() + ")'><td>" + obj[i].product.name + " </td><td>" + obj[i].product.price + " </td><td>" + obj[i].product.category + "</td></tr>";
                 }
-                document.getElementById("summary").innerHTML = val;
+                $('#summary').append(val);
+//                document.getElementById("summary").innerHTML = val + "</table>";
             });
+        };
 
+        var remove_post = function (json_data) {
+            $.post("/remove_product", json_data, function (data) {
+                console.log(data);
+            });
+        };
 
+        var rmv_prod = function (product_id) {
+            var rmv_data = {"pid": product_id};
+            var id = "p" + product_id;
+            $('#p' + product_id).empty();
+            remove_post(rmv_data);
         };
 
         var hide_me = function (id) {
             switch (id) {
                 case "prod1":
-                    $('#prod1').animate({opacity: 0}, 2000);
+                    $('#prod1').animate({opacity: 0}, 1500);
                     break;
                 case "prod2":
-                    $('#prod2').animate({opacity: 0}, 2000);
+                    $('#prod2').animate({opacity: 0}, 1500);
                     break;
                 case "prod3":
-                    $('#prod3').animate({opacity: 0}, 2000);
+                    $('#prod3').animate({opacity: 0}, 1500);
                     break;
                 case "prod5":
-                    $('#prod5').animate({opacity: 0}, 2000);
+                    $('#prod5').animate({opacity: 0}, 1500);
                     break;
                 case "prod6":
-                    $('#prod6').animate({opacity: 0}, 2000);
+                    $('#prod6').animate({opacity: 0}, 1500);
                     break;
                 case "prod7":
-                    $('#prod7').animate({opacity: 0}, 2000);
+                    $('#prod7').animate({opacity: 0}, 1500);
                     break;
                 case "prod9":
-                    $('#prod9').animate({opacity: 0}, 2000);
+                    $('#prod9').animate({opacity: 0}, 1500);
                     break;
                 case "prod10":
-                    $('#prod10').animate({opacity: 0}, 2000);
+                    $('#prod10').animate({opacity: 0}, 1500);
                     break;
                 case "prod11":
-                    $('#prod11').animate({opacity: 0}, 2000);
+                    $('#prod11').animate({opacity: 0}, 1500);
                     break;
                 default:
                     break;
             }
+        };
+
+        var send_to_ids = function (id) {
+            alert("Inserting");
         }
 
     </script>
@@ -99,186 +169,208 @@
 </div>
 
 <div class=".container">
-
-    <div class="row" id="topProd">
-        <div id="prod1" class="products">
-            <div class="col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
-                    <div class="caption">
-                        <center><h3>LG Google Nexus 5X H791 16GB 4G LTE</h3>
-                            <p>Price: $ 269.00 </p>
-                            <p><a href="#prod1" class="btn btn-primary" role="button" onclick="add_product('prod1')">Add
-                                to
-                                Cart</a>
-                                <a href="#prod1" class="btn btn-default" role="button" onclick="hide_me('prod1')">Remove
-                                    Product</a></p>
-                        </center>
+    <div class="col-sm-9 col-md-9">
+        <div class="row" id="topProd">
+            <div id="prod1" class="products">
+                <div class="col-sm-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../static/images/mobile01.jpeg" alt="Mobile">
+                        <div class="caption">
+                            <center><h3 class="title">LG Google Nexus 5X 16GB</h3>
+                                <p>Price: $ <span class="prod_price">269.00</span></p>
+                                <p><a href="#prod1" class="btn btn-primary" role="button"
+                                      onclick="add_product('prod1')">
+                                    Add to Cart</a>
+                                    <a href="#prod1" class="btn btn-default" role="button" onclick="hide_me('prod1')">Remove
+                                        Product</a></p>
+                            </center>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div id="prod2" class="products">
-            <div class="col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <img src="../static/images/laptop.jpg" alt="laptop">
-                    <div class="caption">
-                        <center><h3>Alienware AW15R3-3831SLV Laptop </h3>
-                            <p>Price: $ 1,299.99</p>
-                            <p><a href="#" class="btn btn-primary" role="button" onclick="add_product('prod2')">Add to
-                                Cart</a>
-                                <a href="#" class="btn btn-default" role="button" onclick="hide_me('prod2')">Remove
-                                    Product</a>
-                            </p>
-                        </center>
+            <div id="prod2" class="products">
+                <div class="col-sm-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../static/images/laptop.jpg" alt="laptop">
+                        <div class="caption">
+                            <center><h3 class="title">Alienware AW15R3-3831SLV Laptop </h3>
+                                <p>Price: $ <span class="prod_price">1,299.99</span></p>
+                                <p><a href="#prod2" class="btn btn-primary" role="button"
+                                      onclick="add_product('prod2')">Add
+                                    to
+                                    Cart</a>
+                                    <a href="#prod2" class="btn btn-default" role="button" onclick="hide_me('prod2')">Remove
+                                        Product</a>
+                                </p>
+                            </center>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div id="prod3" class="products">
-            <div class="col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
-                    <div class="caption">
-                        <center><h3>General Mobile GM 4G</h3>
-                            <p>...</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" class="btn btn-default" role="button" onclick="hide_me('prod3')">Remove
-                                    Product</a>
-                            </p>
-                        </center>
+            <div id="prod3" class="products">
+                <div class="col-sm-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../static/images/mouse.jpg" alt="mouse">
+                        <div class="caption">
+                            <center><h3 class="title">Redragon M601 Gaming Mouse</h3>
+                                <p>Price: $ <span class="prod_price">12.49</span></p>
+                                <p><a href="#prod3" class="btn btn-primary" role="button"
+                                      onclick="add_product('prod3')">Add
+                                    to
+                                    Cart</a>
+                                    <a href="#prod3" class="btn btn-default" role="button" onclick="hide_me('prod3')">Remove
+                                        Product</a>
+                                </p>
+                            </center>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
+        <div class="row">
+            <div id="prod5" class="products">
+                <div class="col-sm-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../static/images/keyboard.jpg" alt="keyboard">
+                        <div class="caption">
+                            <center><h3 class="title">SERFPAD TV TRAY STYLE (Premium Version)</h3>
+                                <p>Price: $ <span class="prod_price">69.98</span></p>
+                                <p><a href="#prod5" class="btn btn-primary" role="button"
+                                      onclick="add_product('prod5')">Add
+                                    to
+                                    Cart</a>
+                                    <a href="#prod5" class="btn btn-default" role="button" onclick="hide_me('prod5')">Remove
+                                        Product</a>
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="prod6" class="products">
+                <div class="col-sm-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../static/images/cd.JPG" alt="cd">
+                        <div class="caption">
+                            <center><h3 class="title">Led Zeppelin CD</h3>
+                                <p>Price: $ <span class="prod_price">9.49</span></p>
+                                <p><a href="#prod6" class="btn btn-primary" role="button"
+                                      onclick="add_product('prod6')">Add
+                                    to
+                                    Cart</a>
+                                    <a href="#prod6" class="btn btn-default" role="button" onclick="hide_me('prod6')">Remove
+                                        Product</a>
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="prod7" class="products">
+                <div class="col-sm-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../static/images/headphones.jpg" alt="headphones">
+                        <div class="caption">
+                            <center><h3 class="title">JBL Synchros On-Ear Headphones</h3>
+                                <p>Price: $ <span class="prod_price">31.99</span></p>
+                                <p><a href="#prod7" class="btn btn-primary" role="button"
+                                      onclick="add_product('prod7')">Add
+                                    to
+                                    Cart</a>
+                                    <a href="#prod7" class="btn btn-default" role="button" onclick="hide_me('prod7')">Remove
+                                        Product</a>
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div id="prod9" class="products">
+                <div class="col-sm-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../static/images/shoes.jpg" alt="shoes">
+                        <div class="caption">
+                            <center><h3 class="title">Nike Men's Air Monarch IV Training Shoe</h3>
+                                <p>Price: $ <span class="prod_price">41.63</span></p>
+                                <p><a href="#prod9" class="btn btn-primary" role="button"
+                                      onclick="add_product('prod9')">Add
+                                    to
+                                    Cart</a>
+                                    <a href="#prod9" class="btn btn-default" role="button" onclick="hide_me('prod9')">Remove
+                                        Product</a>
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="prod10" class="products">
+                <div class="col-sm-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../static/images/charger.jpg" alt="charger">
+                        <div class="caption">
+                            <center><h3 class="title">Targus 90 Watt AC Laptop Charger</h3>
+                                <p>Price: $ <span class="prod_price">16.99</span></p>
+                                <p><a href="#prod10" class="btn btn-primary" role="button"
+                                      onclick="add_product('prod10')">Add
+                                    to
+                                    Cart</a>
+                                    <a href="#prod10" class="btn btn-default" role="button" onclick="hide_me('prod10')">Remove
+                                        Product</a>
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="prod11" class="products">
+                <div class="col-sm-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../static/images/kindle.jpeg" alt="kindle">
+                        <div class="caption">
+                            <center><h3 class="title">Kindle Paperwhite E-reader - Black</h3>
+                                <p>Price: $ <span class="prod_price">119.99</span></p>
+                                <p><a href="#prod11" class="btn btn-primary" role="button"
+                                      onclick="add_product('prod11')">Add
+                                    to
+                                    Cart</a>
+                                    <a href="#prod11" class="btn btn-default" role="button" onclick="hide_me('prod11')">Remove
+                                        Product</a>
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-sm-3 col-md-3">
         <div id="prod4" class="products">
-            <div class="col-sm-3 col-md-3">
-                <fieldset>
-                    <legend>Shopping Summary</legend>
-                    <!--<p id="summary"> {% if delta == "hey" %} {{ delta }}{% else %} Did not get anything {% endif %} </p>-->
-                    <p id="summary"></p>
+            <fieldset>
+                <legend>Shopping Summary</legend>
+                <!--<p id="summary"> {% if delta == "hey" %} {{ delta }}{% else %} Did not get anything {% endif %} </p>-->
+                <table id="summary">
+                </table>
 
-                </fieldset>
-            </div>
-        </div>
-    </div>
+                <a href="#prod4" class="btn btn-primary" role="button" onclick="send_to_ids('prod4')">Checkout</a>
 
-    <div class="row">
-        <div id="prod5" class="products">
-            <div class="col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
-                    <div class="caption">
-                        <center><h3>General Mobile GM 4G</h3>
-                            <p>...</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" class="btn btn-default" role="button" onclick="hide_me('prod5')">Remove
-                                    Product</a>
-                            </p>
-                        </center>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="prod6" class="products">
-            <div class="col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
-                    <div class="caption">
-                        <center><h3>General Mobile GM 4G</h3>
-                            <p>...</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" class="btn btn-default" role="button">Remove Product</a>
-                            </p>
-                        </center>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="prod7" class="products">
-            <div class="col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
-                    <div class="caption">
-                        <center><h3>General Mobile GM 4G</h3>
-                            <p>...</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" class="btn btn-default" role="button">Remove Product</a>
-                            </p>
-                        </center>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="prod8" class="products">
-            <div class="col-sm-3 col-md-3">
-
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div id="prod9" class="products">
-            <div class="col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
-                    <div class="caption">
-                        <center><h3>General Mobile GM 4G</h3>
-                            <p>...</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" class="btn btn-default" role="button">Remove Product</a>
-                            </p>
-                        </center>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="prod10" class="products">
-            <div class="col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
-                    <div class="caption">
-                        <center><h3>General Mobile GM 4G</h3>
-                            <p>...</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" class="btn btn-default" role="button">Remove Product</a>
-                            </p>
-                        </center>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="prod11" class="products">
-            <div class="col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <img src="../static/images/mobile01.jpeg" alt="Mobile">
-                    <div class="caption">
-                        <center><h3>General Mobile GM 4G</h3>
-                            <p>...</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" class="btn btn-default" role="button">Remove Product</a>
-                            </p>
-                        </center>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="prod12" class="products">
-            <div class="col-sm-3 col-md-3">
-
-            </div>
+            </fieldset>
         </div>
     </div>
 </div>
-
 </body>
 </html>

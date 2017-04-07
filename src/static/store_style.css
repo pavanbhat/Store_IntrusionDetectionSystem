@@ -5,4 +5,11 @@
     height: 10%;
 }
 
+.prod_rows:hover {
+    background-color: deepskyblue;
+}
 
+.products {
+    width: auto;
+    height: auto;
+}

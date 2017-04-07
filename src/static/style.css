@@ -2,16 +2,15 @@ h1{
     color: red;
 }
 
-div{
-    align-content: center;
-}
 
 .btn:hover {
   background-color: deepskyblue;
 }
 
+
 fieldset{
     margin-top: 20%;
-    display: inline-block;
+    width: 50%;
+    display: inline-flex;
 }
 

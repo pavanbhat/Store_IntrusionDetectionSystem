@@ -3,6 +3,8 @@ import os
 
 from flask import Flask, session, render_template, flash, request, json
 
+from Product import *
+
 # Flask App
 app = Flask(__name__)
 
@@ -34,30 +36,48 @@ def login(user=None):
     return index(user)
 
 
+data_send = []
 
-@app.route('/post_string', methods=['GET', 'POST'])
+
+@app.route('/post_product', methods=['GET', 'POST'])
 def post_string():
-    jsdata = request.form['var1']
-    if request.method == 'POST':
-        print(jsdata)
-        flash(jsdata)
+    try:
         global data_send
-        data_send = jsdata
-        # response = make_response(render_template('store.html', delta=str(jsdata).upper()))
-        # response.
-        # return render_template("store.html", delta="hey")
-        # return jsonify(username='peter', id=123), 200
-        # return homepage("hey")
-        return get_python_data()
-    elif request.method == 'GET':
-        delta = jsdata
-        return render_template("store.html", delta="hey")
+        product_id = str(request.form['pid'])
+        product_name = str(request.form['name'])
+        product_price = str(request.form['price'])
+        product_category = str(request.form['category'])
+        prod = Product(product_id, product_name, product_price, product_category)
+        data_send.append(prod)
+        for i in data_send:
+            print(i.name + ",", end="")
+        print()
+        return json.dumps([obj.dump() for obj in data_send])
+    except Exception as e:
+        flash(e)
 
+
+@app.route('/remove_product', methods=['GET', 'POST'])
+def remove_product():
+    try:
+        global data_send
+        product_id = str(request.form['pid'])
+        print(product_id)
+        for x in data_send:
+            if x.pid == product_id:
+                print("Removing " + x.name)
+                data_send.remove(x)
+        for i in data_send:
+            print(i.name + ",", end="")
+        print()
+        return json.dumps([obj.dump() for obj in data_send])
+    except Exception as e:
+        flash(e)
 
 @app.route('/getpythondata')
 def get_python_data():
-    obj = [{"name": "Hello World!"}, {"name": "Pavan"}]
-    return json.dumps(obj)
+    global data_send
+    return json.dumps([obj.dump() for obj in data_send])
 
 @app.route("/admin/<username>", methods=['POST'])
 def homepage(username=None):
