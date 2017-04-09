@@ -1,25 +1,41 @@
+from ids_main.select import SELECT
+from ids_main.insert import INSERT
+from ids_main.delete import DELETE
+
 class Keyword:
 
     def __init__(self):
-        self.setKey(key)
+        pass
 
     # initialize_keywords creates hashmap of all SQL keywords
     # Class variable keyword is populated with all the data.
     def initialize_keywords(self):
-        self.keyword = dict()
+        # TODO configaration file to allow and disallow SQL keywords.
 
-        self.keyword['SELECT'] = False
-        self.keyword['INSERT'] = False
-        self.keyword['CREATE'] = False
-        self.keyword['DROP'] = False
-        self.keyword['UPDATE'] = False
-        self.keyword['DELETE'] = False
-        self.keyword['TRUNCATE'] = False
+        # self.keyword = dict()
+        #
+        # self.keyword['SELECT'] = SELECT()
+        # self.keyword['INSERT'] = INSERT()
+        # self.keyword['CREATE'] = False
+        # self.keyword['DROP'] = False
+        # self.keyword['UPDATE'] = False
+        # self.keyword['DELETE'] = DELETE()
+        # self.keyword['TRUNCATE'] = False
+        pass
 
-    def getKeyword(self):
-        return self.key
+    def getKeyword(self, keyword):
+        if keyword == 'SELECT':
+            return SELECT()
+        elif keyword == 'INSERT':
+            return INSERT()
+        # elif keyword == 'UPDATE':
+        #     return UPDATE()
+        elif keyword == 'DELETE':
+            return DELETE()
+        else:
+            return None
 
-    def validKeyword(self):
+    def validKeyword(self, keyword):
         return self.key in keyword
 
     def setKey(self, key):

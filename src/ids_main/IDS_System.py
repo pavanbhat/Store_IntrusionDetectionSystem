@@ -7,20 +7,27 @@
 import socket
 import sys
 import os
-from template_train import Template
-
+from template_train import TrainTemplate
+from template_detect import MatchTemplate
 
 class IDS:
 
     def __init__(self):
-        self.template = Template()
+        self.trainTemplate = TrainTemplate()
+        self.template = None
 
-    def trainTemplate(self, path=""):
+    def train(self, path=""):
         path = os.getcwd() + "/train.txt"
-        self.template.train(path)
+        self.trainTemplate.train(path)
+        self.template = self.trainTemplate.getTemplate()
 
-    def detection(self):
-        self.template.checkMatch("DELETE FROM carts WHERE id = 1;")
+    def detect(self, query="DELETE FROM carts WHERE id = 1;"):
+        if self.template is None:
+            print "Template is not trained, please train the template first. Thanks!"
+            return False
+        self.matchTemplate = MatchTemplate(self.template)
+        self.matchTemplate.checkMatch(query)
+
 
     ###
     # Listens at a perticular port listening to for the connection
@@ -60,5 +67,5 @@ class IDS:
 
 if __name__ == '__main__':
     ids = IDS()
-    ids.trainTemplate()
-    ids.detection()
+    ids.train()
+    ids.detect()

@@ -1,1 +1,1 @@
-DELETE FROM carts WHERE 1 = 1;
+DELETE FROM carts WHERE id = 1;
