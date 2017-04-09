@@ -1,1 +1,1 @@
-INSERT INTO products(id, name, price, category) VALUES(1, 'Google Nexus', 650, 'Mobile')
+DELETE FROM carts WHERE 1 = 1;

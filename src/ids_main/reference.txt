@@ -1,5 +1,10 @@
 ** DELETE this file before production **
 
+
+TODO:
+- Adding pickle for dynamic generation and loading model
+- Adding logging level: Error, Info, Debug
+
 queries for our application:
 
 SELECT * FROM products WHERE id=1 and category="Mobile";

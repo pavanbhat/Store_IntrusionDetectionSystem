@@ -24,10 +24,10 @@ class INTO:
         print "table name: ", self.table
 
         self.attributes.append(data[1].replace(self.table, ""))
-        for attribute in data[2:]:
-            if ')' in attribute:
+        for i in range(2, len(data)):
+            if ')' in data[i]:
                 break
-            self.attributes.append(attribute.replace(',', '').strip())
+            self.attributes.append(data[i].replace(',', '').strip())
 
         print "attributes: ", self.attributes
 
@@ -37,4 +37,5 @@ class INTO:
 
     def __eq__(self, other):
         return (set(self.attributes) == set(other.attributes)) \
+                and (self.table == other.table) \
                 and not self.corrupted

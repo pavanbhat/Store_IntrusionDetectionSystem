@@ -7,7 +7,7 @@
 import socket
 import sys
 import os
-from template import Template
+from template_train import Template
 
 
 class IDS:
@@ -20,7 +20,7 @@ class IDS:
         self.template.train(path)
 
     def detection(self):
-        self.template.checkMatch("INSERT INTO products(id, name, price, category) VALUES(1, 'Google Nexus', 650, 'Mobile');")
+        self.template.checkMatch("DELETE FROM carts WHERE id = 1;")
 
     ###
     # Listens at a perticular port listening to for the connection

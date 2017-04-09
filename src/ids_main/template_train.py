@@ -1,5 +1,6 @@
 from ids_main.select import SELECT
 from ids_main.insert import INSERT
+from ids_main.delete import DELETE
 
 class Template:
 
@@ -23,13 +24,13 @@ class Template:
                 self.template['INSERT'] = INSERT()
             # elif key == 'UPDATE':
             #     self.template['SELECT'] = UPDATE()
-            # elif key == 'DELETE':
-            #     self.template['SELECT'] = DELETE()
+            elif key == 'DELETE':
+                self.template['DELETE'] = DELETE()
             self.template[key].parse(query)
 
     def checkMatch(self, query):
         print "template match:"
         print "query", query
-        temp = INSERT()
+        temp = DELETE()
         temp.parse(query)
-        print "result ", temp == self.template['INSERT']
+        print "result ", temp == self.template['DELETE']

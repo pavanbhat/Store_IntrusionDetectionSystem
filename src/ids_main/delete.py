@@ -1,13 +1,14 @@
 from ids_main.From import FROM
 
-class SELECT():
+class DELETE():
 
     def __init__(self):
         self.FROM = []
+        self.corrupted = False
         # Keyword.__init__('SELECT')
 
 
-    # SELECT column1, column2, ...
+    # DELETE
     # FROM table_name
     # WHERE condition;
     def parse(self, query):
@@ -17,20 +18,19 @@ class SELECT():
 
         # Parsing columns
         index = 1
-        self.FROM.append(FROM())
         fromIndex = 0 if len(self.FROM) == 0 else len(self.FROM)-1
-        column = []
-        while query[index] != 'FROM':
-            column.append(query[index])
-            index += 1
-        self.FROM[fromIndex].setColumn([column])
 
-        print "column:", column
+        if query[index] != "FROM":
+            self.corrupted = True
+            return
+        else:
+            self.FROM.append(FROM())
 
         # parsing FROM data
         # TODO handle nested statements in FROM
         index += 1
         fromData = ""
+        fromIndex = 0 if len(self.FROM) == 0 else len(self.FROM) - 1
         while query[index] != 'WHERE' and index < len(query):
             fromData += query[index] + " "
             index += 1
@@ -52,7 +52,6 @@ class SELECT():
     def __eq__(self, other):
         # check for matching FROM nodes
         for curr in self.FROM:
-            print curr.table
             if curr in other.FROM:
                 print "MATCHED"
                 return True
