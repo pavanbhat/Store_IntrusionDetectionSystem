@@ -93,16 +93,11 @@
 
         var get_post = function () {
             $.get("/getpythondata", function (data) {
-                /*var items = [];
-                 $.each(data, function (key, val) {
-                 items.push("<p id='" + key + "'>" + val + "</p>");
-                 });*/
-//                document.getElementById("summary").innerText = temp.name;
                 document.getElementById("summary").innerHTML = "<tr><th>Product Name</th><th>Price</th><th>Category</th></tr>";
                 var obj = $.parseJSON(data);
                 var val = "";
                 for (var i = 0; i < obj.length; i++) {
-                    val += "<tr class='prod_rows' id='p" + i.toString() + "' onclick='rmv_prod(" + i.toString() + ")'><td>" + obj[i].product.name + " </td><td>" + obj[i].product.price + " </td><td>" + obj[i].product.category + "</td></tr>";
+                    val += "<tr class='prod_rows' id='p" + obj[i].product.pid + "' onclick='rmv_prod(" + obj[i].product.pid + ")'><td>" + obj[i].product.name + " </td><td>" + obj[i].product.price + " </td><td>" + obj[i].product.category + "</td></tr>";
                 }
                 $('#summary').append(val);
 //                document.getElementById("summary").innerHTML = val + "</table>";
@@ -120,6 +115,7 @@
             var id = "p" + product_id;
             $('#p' + product_id).empty();
             remove_post(rmv_data);
+            get_post();
         };
 
         var hide_me = function (id) {
@@ -162,9 +158,7 @@
                 url: '/call_ids',
                 data: $('form').serialize(),
                 type: 'POST',
-                success: function (response) {
-                    //I need to some how be able to populate my table with the returned list called jobs;
-//                    alert("Received: " + response);
+                success: function (acknowledgement) {
                     location.href = "{{url_for('send_to_ids')}}"
                 }
                 /*error: function (error) {
@@ -384,8 +378,18 @@
                     <input type="submit" value="Checkout" class="btn btn-primary btn-small btn-block">
                     <!--<a href="#prod4" class="btn btn-primary" role="button" onclick="send_to_ids('prod4')">Checkout</a>-->
                 </form>
-
             </fieldset>
+            <div class="error_messages">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
         </div>
     </div>
 </div>

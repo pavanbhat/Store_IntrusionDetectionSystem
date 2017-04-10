@@ -3,32 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>SignUp / Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css')}}">
+    <!--<script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script>
+        var call_login = function () {
+            $.ajax({
+                url: '/call_login',
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function (response) {
+                    location.href = "{{url_for('login')}}"
+                }
+            });
+        }
+    </script>-->
 </head>
 <body>
 <center>
-    <div class="col-sm-4 col-md-4">
-    </div>
-    <div class="col-sm-4 col-md-4">
-        <fieldset>
-            <legend>Store - Authorized Login</legend>
-            <form action="/register" method="POST">
-                <h2>First Time Users:</h2>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-            </form>
-            <br><br>
-            <form action="/login" method="POST">
-                <h2>Already Registered? </h2>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-            </form>
-        </fieldset>
-    </div>
-    <div class="col-sm-4 col-md-4">
+    <fieldset>
+        <legend>Store - Authorized Login</legend>
+    </fieldset>
+    <div class="admin">
+        <div class="login-screen col-sm-4 col-md-4">
+        </div>
+        <div class="login-screen col-sm-4 col-md-4">
+            <div class="login-form">
+                <center>
+                    <form action="/register" method="POST">
+                        <h2>First Time Users:</h2>
+                        <input value="Register" class="btn btn-lg btn-primary btn-block" type="submit">
+                    </form>
+                    <br><br>
+                    <form action="/login" method="POST">
+                        <h2>Already Registered? </h2>
+                        <input value="Login" class="btn btn-lg btn-primary btn-block" type="submit">
+                    </form>
+                </center>
+            </div>
+        </div>
     </div>
 </center>
-
-
 </body>
 </html>

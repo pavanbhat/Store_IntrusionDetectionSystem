@@ -25,3 +25,14 @@ th, td {
     width: auto;
     height: auto;
 }
+
+.flashes {
+    padding-top: 15px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: large;
+    font-weight: bold;
+    text-decoration-color: orangered;
+    max-width: 325px;
+    margin: auto;
+    border: dotted 2px indianred;
+}

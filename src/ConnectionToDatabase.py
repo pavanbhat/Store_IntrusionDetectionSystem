@@ -12,7 +12,7 @@ class ConnectionToDatabase:
     def make_connection(self, list_of_products=None):
         conn = pg.connect("dbname='postgres' user='postgres' password='secret' host='localhost'")
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO products(id, name, price, category) VALUES(3, 'Red Dragon Mouse', 19, 'Mouse');")
+        cursor.execute("INSERT INTO products(id, name, price, category) VALUES(4, 'Red Dragon Mouse', 19, 'Mouse');")
         conn.commit()
         cursor.execute("select * from products")
         self.printIfExecuted(cursor)

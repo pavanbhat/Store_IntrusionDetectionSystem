@@ -1,12 +1,23 @@
 # All imports here
 import os
 
-from flask import Flask, session, render_template, flash, request, json
+# Importing support libraries
+from flask import Flask, redirect, render_template, flash, request, json, url_for
+from flask_bootstrap import Bootstrap
 
+from ListOfProducts import *
 from Product import *
+from QueryList import *
+from Security import RegisterForm, LoginForm
+# Importing support classes
+from StoreUser import StoreUser, user_db
 
 # Flask App
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:secret@localhost/user_database'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+bootstrap = Bootstrap(app)
+user_db.init_app(app)
 
 
 @app.route("/")
@@ -16,74 +27,111 @@ def index(user=None):
     :param user: The user of the application
     :return: HTML content
     '''
-    if not session.get('logon'):
-        return render_template('login.html', name=user)
+    return render_template('index.html')
 
 
-@app.route("/admin", methods=['POST'])
-def login(user=None):
+@app.route("/register", methods=['GET', 'POST'])
+def register(user=None):
     '''
     Authenticates the username and password of the user
     :return: Call to the home page
     '''
-    if request.form['password'] == 'password' and request.form['user_name'] == 'pavan':
-        session['admin'] = True
-        user = request.form['user_name']
-        print(user)
-    else:
-        flash('wrong password!')
-    # return index(request.form['user_name'])
-    return index(user)
+    form = RegisterForm()
+    user_db.create_all()
+    if request.method == "POST":
+        if form.validate_on_submit():
+            user_validation = StoreUser.query.filter_by(username=form.username.data).first()
+            if user_validation:
+                flash("User already exists!")
+                return render_template('register.html', form=form)
+            else:
+                set_user = StoreUser(email=form.email.data, username=form.username.data, password=form.password.data)
+                user_db.session.add(set_user)
+                user_db.session.commit()
+                return redirect(url_for('login'))
+        else:
+            return render_template('register.html', form=form)
+    elif request.method == "GET":
+        return render_template('register.html', form=form)
 
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    '''
+    Authenticates the username and password of the user
+    :return: Call to the home page
+    '''
+    form = LoginForm()
+    if form.validate_on_submit():
+        user_validation = StoreUser.query.filter_by(username=form.username.data).first()
+        if user_validation:
+            if user_validation.check_password(form.password.data):
+                return redirect(url_for('store'))
+            else:
+                flash("Password entered is incorrect!")
+        else:
+            flash("Username entered is incorrect!")
+    return render_template('login.html', form=form)
 
 data_send = []
 
+
+@app.route('/remove_product', methods=['GET', 'POST'])
+def remove_product():
+    '''
+    
+    :return: 
+    '''
+    try:
+        global obj
+        product_id = str(request.form['pid'])
+        obj.remove_data(product_id)
+        if len(data_send) == 0:
+            flash("No product to remove!")
+        else:
+            return json.dumps([prod.dump() for prod in obj.get_data()])
+    except Exception as e:
+        flash(e)
+
+
 @app.route('/post_product', methods=['GET', 'POST'])
 def post_string():
+    '''
+    
+    :return: 
+    '''
     try:
-        global data_send
+        global obj
         product_id = str(request.form['pid'])
         product_name = str(request.form['name'])
         product_price = str(request.form['price'])
         product_category = str(request.form['category'])
         prod = Product(product_id, product_name, product_price, product_category)
-        data_send.append(prod)
-        for i in data_send:
+        obj.set_data(prod)
+        for i in obj.get_data():
             print(i.name + ",", end="")
         print()
-        return json.dumps([obj.dump() for obj in data_send])
+        return json.dumps([prod.dump() for prod in obj.get_data()])
     except Exception as e:
         flash(e)
 
-
-@app.route('/remove_product', methods=['GET', 'POST'])
-def remove_product():
-    try:
-        global data_send
-        product_id = str(request.form['pid'])
-        print(product_id)
-        for x in data_send:
-            if x.pid == product_id:
-                print("Removing " + x.name)
-                data_send.remove(x)
-        for i in data_send:
-            print(i.name + ",", end="")
-        print()
-        return json.dumps([obj.dump() for obj in data_send])
-    except Exception as e:
-        flash(e)
 
 @app.route('/getpythondata')
 def get_python_data():
-    global data_send
-    return json.dumps([obj.dump() for obj in data_send])
+    '''
+    
+    :return: 
+    '''
+    global obj
+    for i in obj.get_data():
+        print(i.name + ",", end="")
+    print()
+    return json.dumps([prod.dump() for prod in obj.get_data()])
 
 
 @app.route('/call_ids', methods=['GET', 'POST'])
 def call_ids():
     try:
-        # info = str(request.form['shop_info'])
-        # print("Got the information!" + info)
         return send_to_ids()
     except Exception as e:
         flash(e)
@@ -98,17 +146,21 @@ def send_to_ids():
     '''
     return render_template("send_to_ids.html")
 
-@app.route("/admin/<username>", methods=['POST'])
-def homepage(username=None):
+
+@app.route("/store", methods=['GET', 'POST'])
+def store(username=None):
     '''
 
     :param username:
     :return:
     '''
-    return render_template("store.html", username=username, count=0)
+    return render_template("store.html", username=username)
 
 
 # Loads the Flask application
 if __name__ == '__main__':
+    global obj
+    obj = ListOfProducts()
+    queries = QueryList()
     app.secret_key = os.urandom(12)
     app.run(debug="True")
