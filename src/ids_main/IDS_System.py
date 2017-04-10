@@ -16,8 +16,7 @@ class IDS:
         self.trainTemplate = TrainTemplate()
         self.template = None
 
-    def train(self, path=""):
-        path = os.getcwd() + "/train.txt"
+    def train(self, path="os.getcwd() + '/train.txt'"):
         self.trainTemplate.train(path)
         self.template = self.trainTemplate.getTemplate()
 
@@ -37,23 +36,27 @@ class IDS:
     # saves the connection in self.app and the server address in self.appAddr
     ###
     def connectToApplication(self):
-        # Create a TCP/IP socket
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-        # Bind the socket to the port
-        server = ('localhost', 9999)
-        sock.bind(server)
-
-        self.app, self.appAddr = sock.accept()
-
+        try:
+            # Create a TCP/IP socket
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            # Bind the socket to the port
+            sock.bind(('129.21.115.185', 8000))
+            sock.listen(1)
+            self.app, self.appAddr = sock.accept()
+        except:
+            return False
+        return True
 
     ###
     # Receives upto 2048 bytes of data from the client application.
     # Any SQL query wont be more than 2048 bytes.
     ###
-    def recvData(self):
-        return self.app.recv(2048)
+    def recvParse(self):
+        queries = self.app.recv(2048)
+        return queries.split(';')
 
+    def sendToApp(self, data):
+        self.app.send(data)
 
     ###
     # callQueryNode function passes the query to the query parser.
@@ -65,7 +68,31 @@ class IDS:
         #query = Query(query)
         pass
 
+
+    def run(self):
+        validConnection = False
+        while not validConnection:
+            print "Connecting to Application"
+            validConnection = ids.connectToApplication()
+            print "Attemt failed, trying again!"
+
+        self.start()
+
+    def start(self):
+        self.train()
+
+        while True:
+            transactionQueries = self.recvParse()
+            result = True
+            for query in transactionQueries:
+                if not self.detect(query):
+                    result = False
+                    break
+            self.sendToApp(result)
+
+
 if __name__ == '__main__':
     ids = IDS()
-    ids.train()
-    ids.detect()
+    # ids.train()
+    # ids.detect()
+    ids.connectToApplication()
