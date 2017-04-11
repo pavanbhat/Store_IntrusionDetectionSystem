@@ -1,6 +1,6 @@
-from ids_main.select import SELECT
-from ids_main.insert import INSERT
-from ids_main.delete import DELETE
+from select import *
+from insert import INSERT
+from delete import DELETE
 
 class Keyword:
 

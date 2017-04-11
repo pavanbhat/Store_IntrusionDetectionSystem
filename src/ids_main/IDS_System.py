@@ -16,16 +16,20 @@ class IDS:
         self.trainTemplate = TrainTemplate()
         self.template = None
 
-    def train(self, path="os.getcwd() + '/train.txt'"):
+    def train(self, path="train.txt"):
+        if not os.path.exists(path):
+            print("Training file not found!")
+            return False
         self.trainTemplate.train(path)
         self.template = self.trainTemplate.getTemplate()
+        return True
 
     def detect(self, query="DELETE FROM carts WHERE id = 1;"):
         if self.template is None:
-            print "Template is not trained, please train the template first. Thanks!"
+            print("Template is not trained, please train the template first. Thanks!")
             return False
         self.matchTemplate = MatchTemplate(self.template)
-        self.matchTemplate.checkMatch(query)
+        return self.matchTemplate.checkMatch(query)
 
 
     ###
@@ -72,9 +76,9 @@ class IDS:
     def run(self):
         validConnection = False
         while not validConnection:
-            print "Connecting to Application"
+            print("Connecting to Application")
             validConnection = ids.connectToApplication()
-            print "Attemt failed, trying again!"
+            print("Attemt failed, trying again!")
 
         self.start()
 
@@ -93,6 +97,6 @@ class IDS:
 
 if __name__ == '__main__':
     ids = IDS()
-    # ids.train()
-    # ids.detect()
-    ids.connectToApplication()
+    ids.train()
+    ids.detect()
+    #ids.connectToApplication()

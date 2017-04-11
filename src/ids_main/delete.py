@@ -1,6 +1,6 @@
-from ids_main.From import FROM
+from From import FROM
 
-class DELETE():
+class DELETE:
 
     def __init__(self):
         self.FROM = []
@@ -12,8 +12,6 @@ class DELETE():
     # FROM table_name
     # WHERE condition;
     def parse(self, query):
-        print "select parse:"
-        print "query:", query
         query = query.split()
 
         # Parsing columns
@@ -35,7 +33,6 @@ class DELETE():
             fromData += query[index] + " "
             index += 1
         self.FROM[fromIndex].parse(fromData.strip())
-        print "from data: ", fromData
 
         # parsing WHERE data
         # TODO handle nested statements for WHERE
@@ -45,15 +42,13 @@ class DELETE():
             whereData += query[index] + " "
             index += 1
         self.FROM[fromIndex].poplateWhere(whereData)
-        print "where data:", whereData
-
 
     # Overriding = comparator
     def __eq__(self, other):
         # check for matching FROM nodes
         for curr in self.FROM:
             if curr in other.FROM:
-                print "MATCHED"
+                print("MATCHED")
                 return True
-        print "NOT MATCHED"
+        print("NOT MATCHED")
         return False

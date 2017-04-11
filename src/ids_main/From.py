@@ -1,5 +1,5 @@
 # From class reponsible of parsing from data
-from ids_main.where import WHERE
+from where import WHERE
 
 class FROM:
 
