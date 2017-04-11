@@ -11,7 +11,7 @@ class ConnectToIDS:
         self.host = '127.0.0.1'
         self.port = 5555
 
-    def connect_to_ids(self, host='129.21.127.87', port=5555):
+    def connect_to_ids(self, host='129.21.115.185', port=8000):
         '''
         
         :param host: IP address of the IDS 
@@ -27,7 +27,6 @@ class ConnectToIDS:
             sock.send(message1)
             message = input("->")
         sock.close()
-
 
 def main():
     '''

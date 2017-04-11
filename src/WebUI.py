@@ -101,13 +101,14 @@ def post_string():
     :return: 
     '''
     try:
-        global obj
+        global obj, queries
         product_id = str(request.form['pid'])
         product_name = str(request.form['name'])
         product_price = str(request.form['price'])
         product_category = str(request.form['category'])
         prod = Product(product_id, product_name, product_price, product_category)
         obj.set_data(prod)
+        queries.add_query()
         for i in obj.get_data():
             print(i.name + ",", end="")
         print()
@@ -159,7 +160,7 @@ def store(username=None):
 
 # Loads the Flask application
 if __name__ == '__main__':
-    global obj
+    global obj, queries
     obj = ListOfProducts()
     queries = QueryList()
     app.secret_key = os.urandom(12)
