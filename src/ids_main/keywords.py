@@ -1,6 +1,7 @@
 from select import *
 from insert import INSERT
 from delete import DELETE
+from update import UPDATE
 
 class Keyword:
 
@@ -28,8 +29,8 @@ class Keyword:
             return SELECT()
         elif keyword == 'INSERT':
             return INSERT()
-        # elif keyword == 'UPDATE':
-        #     return UPDATE()
+        elif keyword == 'UPDATE':
+            return UPDATE()
         elif keyword == 'DELETE':
             return DELETE()
         else:

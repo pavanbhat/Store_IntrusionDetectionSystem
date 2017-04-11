@@ -15,5 +15,8 @@ class MatchTemplate:
         queryTemplate = keyword.getKeyword(key)
         queryTemplate.parse(query)
 
-        print("result ", queryTemplate == self.template['DELETE'])
-        return queryTemplate == self.template['DELETE']
+        if key not in self.template:
+            print("OOPS")
+            return False
+        print("result ", queryTemplate == self.template[key])
+        return queryTemplate == self.template[key]

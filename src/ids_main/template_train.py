@@ -26,7 +26,9 @@ class TrainTemplate:
         queryTemplate = self.keyword.getKeyword(key)
         queryTemplate.parse(query)
 
-        return queryTemplate == self.template['DELETE']
+        if key not in self.template:
+            return False
+        return queryTemplate == self.template[key]
 
     def getTemplate(self):
         return self.template

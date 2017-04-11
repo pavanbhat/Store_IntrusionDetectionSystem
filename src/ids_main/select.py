@@ -27,11 +27,10 @@ class SELECT:
         # TODO handle nested statements in FROM
         index += 1
         fromData = ""
-        while query[index] != 'WHERE' and index < len(query):
+        while query[index].upper() != 'WHERE' and index < len(query):
             fromData += query[index] + " "
             index += 1
         self.FROM[fromIndex].parse(fromData.strip())
-        print "from data: ", fromData
 
         # parsing WHERE data
         # TODO handle nested statements for WHERE
@@ -48,7 +47,5 @@ class SELECT:
         # check for matching FROM nodes
         for curr in self.FROM:
             if curr in other.FROM:
-                print("MATCHED")
                 return True
-        print("NOT MATCHED")
         return False

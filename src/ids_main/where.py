@@ -15,8 +15,9 @@ class WHERE:
         queryData = re.split('and | or | AND | OR', queryData)
 
         for conditions in queryData:
+            if len(conditions) <= 2: continue
             rvalue, lvalue = re.split('<|>|=| = | > | <', conditions)
-            self.attributes.extend([rvalue, lvalue])
+            self.attributes.extend([rvalue])
             if self.checkAnamoly(rvalue, lvalue):
                 self.corrupted = True
 

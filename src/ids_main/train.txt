@@ -1,1 +1,1 @@
-DELETE FROM carts WHERE id = 1;
+UPDATE table SET a=b

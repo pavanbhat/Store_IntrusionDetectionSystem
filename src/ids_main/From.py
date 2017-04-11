@@ -28,4 +28,5 @@ class FROM:
         for where in self.WHERE:
             if where not in other.WHERE:
                 return False
-        return self.table == other.table
+        return self.table == other.table \
+                and set(self.column) == set(other.column)

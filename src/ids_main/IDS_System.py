@@ -24,7 +24,7 @@ class IDS:
         self.template = self.trainTemplate.getTemplate()
         return True
 
-    def detect(self, query="DELETE FROM carts WHERE id = 1;"):
+    def detect(self, query="UPDATE table SET a=b"):
         if self.template is None:
             print("Template is not trained, please train the template first. Thanks!")
             return False
@@ -100,7 +100,7 @@ class IDS:
 
 if __name__ == '__main__':
     ids = IDS()
-    # ids.train()
-    # ids.detect()
-    ids.connectToApplication()
-    ids.start()
+    ids.train()
+    ids.detect()
+    # # ids.connectToApplication()
+    # ids.start()
