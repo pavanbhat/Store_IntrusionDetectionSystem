@@ -88,6 +88,7 @@ def remove_product():
         obj.remove_data(product_id)
         if len(data_send) == 0:
             flash("No product to remove!")
+            return "None"
         else:
             return json.dumps([prod.dump() for prod in obj.get_data()])
     except Exception as e:
@@ -108,7 +109,7 @@ def post_string():
         product_category = str(request.form['category'])
         prod = Product(product_id, product_name, product_price, product_category)
         obj.set_data(prod)
-        queries.add_query()
+        queries.add_query("SELECT", prod, "products")
         for i in obj.get_data():
             print(i.name + ",", end="")
         print()
@@ -130,6 +131,17 @@ def get_python_data():
     return json.dumps([prod.dump() for prod in obj.get_data()])
 
 
+@app.route('/delete_product', methods=['GET', 'POST'])
+def delete_product():
+    try:
+        global queries
+        product_id = str(request.form['pid'])
+        queries.add_query("DELETE", product_id)
+        return render_template("store.html")
+    except Exception as e:
+        flash(e)
+
+
 @app.route('/call_ids', methods=['GET', 'POST'])
 def call_ids():
     try:
@@ -145,6 +157,9 @@ def send_to_ids():
     :param username:
     :return:
     '''
+    global obj, queries
+    for i in obj.get_data():
+        queries.add_query("INSERT", i, "products")
     return render_template("send_to_ids.html")
 
 
