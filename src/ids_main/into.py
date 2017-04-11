@@ -9,7 +9,6 @@ class INTO:
         self.corrupted = False
 
     def parse(self, data):
-        print "INTO"
         data = data.split()
         if data[0].upper() != 'INTO':
             self.corrupted = True
@@ -21,15 +20,11 @@ class INTO:
                 break
             self.table += char
 
-        print "table name: ", self.table
-
         self.attributes.append(data[1].replace(self.table, ""))
         for i in range(2, len(data)):
             if ')' in data[i]:
                 break
             self.attributes.append(data[i].replace(',', '').strip())
-
-        print "attributes: ", self.attributes
 
         # validate the values part of SQL statement
         

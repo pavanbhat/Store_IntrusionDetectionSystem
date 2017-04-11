@@ -1,6 +1,6 @@
 from ids_main.From import FROM
 
-class SELECT():
+class SELECT:
 
     def __init__(self):
         self.FROM = []
@@ -11,8 +11,6 @@ class SELECT():
     # FROM table_name
     # WHERE condition;
     def parse(self, query):
-        print "select parse:"
-        print "query:", query
         query = query.split()
 
         # Parsing columns
@@ -24,8 +22,6 @@ class SELECT():
             column.append(query[index])
             index += 1
         self.FROM[fromIndex].setColumn([column])
-
-        print "column:", column
 
         # parsing FROM data
         # TODO handle nested statements in FROM
@@ -45,16 +41,14 @@ class SELECT():
             whereData += query[index] + " "
             index += 1
         self.FROM[fromIndex].poplateWhere(whereData)
-        print "where data:", whereData
 
 
     # Overriding = comparator
     def __eq__(self, other):
         # check for matching FROM nodes
         for curr in self.FROM:
-            print curr.table
             if curr in other.FROM:
-                print "MATCHED"
+                print("MATCHED")
                 return True
-        print "NOT MATCHED"
+        print("NOT MATCHED")
         return False

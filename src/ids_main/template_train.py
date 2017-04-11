@@ -1,7 +1,4 @@
-from ids_main.select import SELECT
-from ids_main.insert import INSERT
-from ids_main.delete import DELETE
-from ids_main.keywords import Keyword
+from keywords import Keyword
 
 class TrainTemplate:
 
@@ -9,8 +6,7 @@ class TrainTemplate:
         self.template = dict()
 
     def train(self, fileName):
-        print "template train"
-        with file(fileName) as f:
+        with open(fileName) as f:
             data = f.read().split("\n")
 
         keyword = Keyword()

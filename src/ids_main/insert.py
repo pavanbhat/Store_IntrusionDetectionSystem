@@ -2,9 +2,9 @@
 
 ###
 
-from ids_main.into import INTO
+from into import INTO
 
-class INSERT():
+class INSERT:
 
     def __init__(self):
         self.INTO = []

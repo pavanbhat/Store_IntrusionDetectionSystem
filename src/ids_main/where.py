@@ -7,7 +7,6 @@ class WHERE:
         self.corrupted = False
 
     def parse(self, queryData):
-        print "where parse:", queryData
         # TODO
         # Detect multiple select statement and handle
 
