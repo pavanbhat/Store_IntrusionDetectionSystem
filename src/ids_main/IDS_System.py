@@ -44,10 +44,13 @@ class IDS:
             # Create a TCP/IP socket
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             # Bind the socket to the port
-            sock.bind(('129.21.115.185', 8000))
+            sock.bind(('192.168.0.13', 8000))
+            print("waiting for connection")
             sock.listen(1)
             self.app, self.appAddr = sock.accept()
+            print("Successfull connected to application")
         except:
+            print("Connection failed")
             return False
         return True
 
@@ -97,6 +100,7 @@ class IDS:
 
 if __name__ == '__main__':
     ids = IDS()
-    ids.train()
-    ids.detect()
-    #ids.connectToApplication()
+    # ids.train()
+    # ids.detect()
+    ids.connectToApplication()
+    ids.start()

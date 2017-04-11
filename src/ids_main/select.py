@@ -1,4 +1,4 @@
-from ids_main.From import FROM
+from From import FROM
 
 class SELECT:
 
@@ -18,7 +18,7 @@ class SELECT:
         self.FROM.append(FROM())
         fromIndex = 0 if len(self.FROM) == 0 else len(self.FROM)-1
         column = []
-        while query[index] != 'FROM':
+        while query[index] != 'FROM' or index < len(query):
             column.append(query[index])
             index += 1
         self.FROM[fromIndex].setColumn([column])
