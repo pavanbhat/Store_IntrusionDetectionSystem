@@ -1,13 +1,17 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>SignUp / Login</title>
+
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css')}}">
+
+    <!--
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css')}}">
-    <!--<script
+    <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
@@ -25,29 +29,44 @@
     </script>-->
 </head>
 <body>
-<center>
-    <fieldset>
-        <legend>Store - Authorized Login</legend>
-    </fieldset>
-    <div class="admin">
+
+
+<div style="text-align:center;color:white">
+    <br/><br/>
+    <h1>Welcome to the Login Page</h1><br/><br/><br/>
+</div>
+<div class="admin">
         <div class="login-screen col-sm-4 col-md-4">
         </div>
         <div class="login-screen col-sm-4 col-md-4">
-            <div class="login-form">
+            <center>
+                <fieldset class="login-form" style="background-color:paleturquoise;
+                        opacity:0.6;width:60%;height:55%;">
                 <center>
                     <form action="/register" method="POST">
                         <h2>First Time Users:</h2>
-                        <input value="Register" class="btn btn-lg btn-primary btn-block" type="submit">
+                        <button value="Register" class="btn btn-lg btn-primary btn-block" type="submit"
+                                style="width:100px;height:40px;background-color:blue;font-size:120%;color:white;font-weight:bold"
+                                onmouseover="this.style.boxShadow = '0px 0px 50px orangered';"
+                                onmouseout="this.style.boxShadow = '0px 0px 0px white';">
+                            Register
+                        </button>
                     </form>
                     <br><br>
                     <form action="/login" method="POST">
                         <h2>Already Registered? </h2>
-                        <input value="Login" class="btn btn-lg btn-primary btn-block" type="submit">
+                        <button value="Login" class="btn btn-lg btn-primary btn-block" type="submit"
+                                style="width:100px;height:40px;background-color:blue;font-size:120%;color:white;font-weight:bold"
+                                onmouseover="this.style.boxShadow = '0px 0px 50px orangered';"
+                                onmouseout="this.style.boxShadow = '0px 0px 0px white';">
+                            Login
+                        </button>
                     </form>
                 </center>
-            </div>
+                </fieldset>
+            </center>
         </div>
     </div>
-</center>
+
 </body>
 </html>

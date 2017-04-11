@@ -1,16 +1,16 @@
-fieldset {
-    font-family: 'Droid Sans', sans-serif;
-    text-weight: bold;
-    font-size: large;
-    display: block;
+
+html{
+    padding: 0px;
+    background:#AFEEEE;
 }
 
 body {
     font-family: 'Droid Sans', sans-serif;
-    background-color: lightskyblue;
+    background-image: url(dataSS.jpg);
+    padding:20px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
-.admin {
-    font-family: 'Droid Sans', sans-serif;
-    margin-top: 4%;
-}
+
+
