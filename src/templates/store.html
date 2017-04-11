@@ -150,6 +150,20 @@
                 default:
                     break;
             }
+            var prod = {"pid": id};
+            $.ajax({
+                url: '/delete_product',
+                data: prod,
+                type: 'POST',
+                success: function (acknowledgement) {
+//                    location.href = "{{url_for('send_to_ids')}}"
+                    alert('Successfully deleted products!');
+                }
+                /*error: function (error) {
+                 alert(error);
+                 }*/
+            });
+
         };
 
         var send_to_ids = function (id) {
@@ -203,7 +217,7 @@
                         <img src="../static/images/laptop.jpg" alt="laptop">
                         <div class="caption">
                             <center><h3 class="title">Alienware AW15R3-3831SLV Laptop </h3>
-                                <p>Price: $ <span class="prod_price">1,299.99</span></p>
+                                <p>Price: $ <span class="prod_price">1299.99</span></p>
                                 <p><a href="#prod2" class="btn btn-primary" role="button"
                                       onclick="add_product('prod2')">Add
                                     to
