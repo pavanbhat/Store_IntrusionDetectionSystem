@@ -7,20 +7,25 @@ Intrusion Detection on Databases
 
 {% block styles %}
 {{super()}}
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet'>
+<!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet'>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
 <link rel="stylesheet" type="text/css" href="{{ url_for('.static', filename='login.css')}}">
 {% endblock %}
-
+<body>
 {% block content %}
 <div class="container">
+    <br/><br/><br/>
+    <h1 style="text-align:center;padding:0px;">Login to the Store</h1>
+    <br/><br/>
     <center>
-        <fieldset>
-            <legend>Login to the Store</legend>
+
+        <fieldset style="background-color:paleturquoise;opacity:0.8;width:60%;height:55%;">
+            <br/>
             <left>
                 <form class="login-form" action="/login" method="POST">
                     {{ form.hidden_tag()}}
+                    <br/>
                     <div class="form-group">
                         {{ form.username.label }}
                         {{ form.username }}
@@ -48,4 +53,6 @@ Intrusion Detection on Databases
         </div>
     </center>
 </div>
+
 {% endblock %}
+</body>
