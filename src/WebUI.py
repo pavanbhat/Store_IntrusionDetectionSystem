@@ -94,6 +94,7 @@ def remove_product():
         global obj
         product_id = str(request.form['pid'])
         obj.remove_data(product_id)
+        queries.add_query("DELETE", product_id)
         if len(data_send) == 0:
             flash("No product to remove!")
             return "None"
