@@ -14,58 +14,50 @@
 
     {% block scripts %}
     <script>
-        var pid = Math.floor((1 + Math.random()) * 0x10000);
+
         var pid_list = [];
         var add_product = function (id) {
-            var product_id = 0;
+            var product_id = new Date().valueOf();
             var productName = "";
             var price = "";
             var category = "";
             switch (id) {
                 case "prod1":
-                    product_id = pid;
                     productName = $("#prod1").find(".title").text();
                     price = $("#prod1").find(".prod_price").text();
                     category = "Mobile";
                     break;
                 case "prod2":
-                    product_id = pid;
                     productName = $("#prod2").find(".title").text();
                     price = $("#prod2").find(".prod_price").text();
                     category = "Laptop";
                     break;
                 case "prod3":
-                    product_id = pid;
                     productName = $("#prod3").find(".title").text();
                     price = $("#prod3").find(".prod_price").text();
                     category = "Mouse";
                     break;
                 case "prod5":
-                    product_id = pid;
                     productName = $("#prod5").find(".title").text();
                     price = $("#prod5").find(".prod_price").text();
                     category = "Keyboard";
                     break;
                 case "prod6":
-                    product_id = pid;
                     productName = $("#prod6").find(".title").text();
                     price = $("#prod6").find(".prod_price").text();
                     category = "CD";
                     break;
                 case "prod7":
-                    product_id = pid;
                     productName = $("#prod7").find(".title").text();
                     price = $("#prod7").find(".prod_price").text();
                     category = "Headphones";
                     break;
                 case "prod9":
-                    product_id = pid;
                     productName = $("#prod9").find(".title").text();
                     price = $("#prod9").find(".prod_price").text();
                     category = "Shoes";
                     break;
                 case "prod10":
-                    product_id = pid;
                     productName = $("#prod10").find(".title").text();
                     price = $("#prod10").find(".prod_price").text();
                     category = "Charger";

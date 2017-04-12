@@ -1,7 +1,7 @@
 import socket
 
 class ConnectToIDS:
-    __slots__ = 'host', 'port'
+    __slots__ = 'host', 'port', 'sock'
 
     def __init__(self):
         '''
@@ -9,6 +9,7 @@ class ConnectToIDS:
         '''
         self.host = '127.0.0.1'
         self.port = 5555
+        self.sock = None
 
     def connect_to_ids(self, host='129.21.122.59', port=8000, message="None", queries=None):
         '''
@@ -17,14 +18,15 @@ class ConnectToIDS:
         :param port: port number to connect to the IDS from
         :return: None
         '''
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect((host, port))
+        # if self.sock is None:
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.connect((host, port))
         print("Sending queries to IDS...")
         flag = True
         while flag:
             message1 = bytearray(message, "ascii")
-            sock.send(message1)
-            data = sock.recv(1024)
+            self.sock.send(message1)
+            data = self.sock.recv(1024)
             received_data = data.decode('ascii')
             if received_data is not None:
                 break
@@ -47,7 +49,7 @@ class ConnectToIDS:
         # print("Success queries: ", success_queries)
         # print("Filtered queries: ", filtered_queries)
 
-        sock.close()
+        # self.sock.close()
         return success_queries, filtered_queries, insert_queries
 
 def main():

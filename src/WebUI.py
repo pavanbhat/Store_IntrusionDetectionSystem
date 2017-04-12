@@ -219,10 +219,8 @@ def send_to_ids():
             values = data[data.find("S(") + 2: data.rfind(")")]
             send_queries.append(values)
     print(send_queries)
-    database.make_connection(store, send_queries)
-
-
-
+    if filtered_queries == "":
+        database.make_connection(store, send_queries)
     return render_template("send_to_ids.html")
 
 
