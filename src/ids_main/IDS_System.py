@@ -107,7 +107,7 @@ class IDS:
 
 if __name__ == '__main__':
     ids = IDS()
-    ids.train()
-    ids.detect()
-    #ids.connectToApplication()
-    #ids.start()
+    # ids.train()
+    # ids.detect()
+    ids.connectToApplication()
+    ids.start()

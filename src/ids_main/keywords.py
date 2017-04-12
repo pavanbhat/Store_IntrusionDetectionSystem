@@ -1,4 +1,4 @@
-from select import SELECT
+from selectsql import SELECT
 from insert import INSERT
 from delete import DELETE
 from update import UPDATE
