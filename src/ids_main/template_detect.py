@@ -16,7 +16,7 @@ class MatchTemplate:
         queryTemplate.parse(query)
 
         if key not in self.template:
-            print("OOPS")
+            print("OOPS key not found")
             return False
         print("result ", queryTemplate == self.template[key])
         return queryTemplate == self.template[key]

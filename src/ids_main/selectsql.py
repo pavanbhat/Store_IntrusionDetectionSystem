@@ -4,13 +4,11 @@ class SELECT:
 
     def __init__(self):
         self.FROM = []
-        # Keyword.__init__('SELECT')
 
-
-    # SELECT column1, column2, ...
-    # FROM table_name
-    # WHERE condition;
     def parse(self, query):
+        # SELECT column1, column2, ...
+        # FROM table_name
+        # WHERE condition;
         query = query.split()
 
         # Parsing columns
@@ -18,16 +16,16 @@ class SELECT:
         self.FROM.append(FROM())
         fromIndex = 0 if len(self.FROM) == 0 else len(self.FROM)-1
         column = []
-        while query[index] != 'FROM' or index < len(query):
+        while index < len(query) and query[index] != 'FROM':
             column.append(query[index])
             index += 1
-        self.FROM[fromIndex].setColumn([column])
+        self.FROM[fromIndex].setColumn(column)
 
         # parsing FROM data
         # TODO handle nested statements in FROM
         index += 1
         fromData = ""
-        while query[index].upper() != 'WHERE' and index < len(query):
+        while index < len(query) and query[index].upper() != 'WHERE':
             fromData += query[index] + " "
             index += 1
         self.FROM[fromIndex].parse(fromData.strip())

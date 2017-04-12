@@ -17,7 +17,7 @@ class FROM:
         self.table = queryData.strip()
 
     def setColumn(self, column):
-        self.column.append(column)
+        self.column.extend(column)
 
     def poplateWhere(self, whereData):
         self.WHERE.append(WHERE())

@@ -21,6 +21,8 @@ class UPDATE:
 
         if query[2].upper() != 'SET':
             return False
+
+        index = 3
         setData = ""
         while index < len(query) and query[index].upper() != 'WHERE':
             setData += query[index] + " "
@@ -36,8 +38,8 @@ class UPDATE:
             index += 1
         self.set[setIndex].poplateWhere(whereData)
 
-        def __eq__(self, other):
-            for curr in self.set:
-                if curr in other.set:
-                    return True
-            return False
+    def __eq__(self, other):
+        for curr in self.set:
+            if curr in other.set:
+                return True
+        return False
