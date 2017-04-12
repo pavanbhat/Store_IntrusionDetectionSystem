@@ -1,1 +1,1 @@
-UPDATE table SET a=b
+SELECT * FROM table WHERE a=b
