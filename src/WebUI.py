@@ -221,6 +221,8 @@ def send_to_ids():
     print(send_queries)
     if filtered_queries == "":
         database.make_connection(store, send_queries)
+    obj.remove_all_data()
+    queries.remove_all_query()
     return render_template("send_to_ids.html")
 
 
