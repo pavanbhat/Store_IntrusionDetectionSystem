@@ -106,6 +106,12 @@ class IDS:
 
         while True:
             transactionQueries = self.recvParse()
+
+            # handling empty checkout
+            if len(transactionQueries) == 1 and transactionQueries[0] == '':
+                self.sendToApp("False")
+                continue
+
             result = ""
             for query in transactionQueries:
                 if query == '':

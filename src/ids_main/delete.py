@@ -48,7 +48,5 @@ class DELETE:
         # check for matching FROM nodes
         for curr in self.FROM:
             if curr in other.FROM:
-                print("MATCHED")
                 return True
-        print("NOT MATCHED")
         return False

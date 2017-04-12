@@ -13,7 +13,6 @@ class TrainTemplate:
         for query in data:
             if len(query.split()) <= 1 or self.queryPrevTrained(query):
                 continue
-            print(query)
             key = query.split()[0].upper()
             if key in self.template:
                 self.template[key].parse(query)
