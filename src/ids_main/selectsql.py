@@ -16,7 +16,7 @@ class SELECT:
         self.FROM.append(FROM())
         fromIndex = 0 if len(self.FROM) == 0 else len(self.FROM)-1
         column = []
-        while index < len(query) and query[index] != 'FROM':
+        while index < len(query) and query[index].upper() != 'FROM':
             column.append(query[index])
             index += 1
         self.FROM[fromIndex].setColumn(column)

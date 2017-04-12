@@ -27,7 +27,7 @@ class IDS:
         self.template = self.trainTemplate.getTemplate()
         return True
 
-    def detect(self, query="UPDATE table SET a=b"):
+    def detect(self, query="SELECT * from products WHERE id=0 and category=Laptop"):
         if self.template is None:
             print("Template is not trained, please train the template first. Thanks!")
             return False
@@ -66,11 +66,13 @@ class IDS:
     def recvParse(self):
         queries = self.app.recv(2048)
         queries = queries.decode('utf-8')
-        print(queries)
+        print(queries.split(';'))
         return queries.split(';')
 
     def sendToApp(self, data):
-        self.app.send(data)
+        print("Sending result back to application")
+        print("result: ", data)
+        self.app.send(bytes(data))
 
     ###
     # callQueryNode function passes the query to the query parser.
