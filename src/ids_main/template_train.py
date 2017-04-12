@@ -10,7 +10,6 @@ class TrainTemplate:
         with open(fileName) as f:
             data = f.read().split("\n")
 
-
         for query in data:
             if len(query.split()) == 0 and self.queryPrevTrained(query):
                 continue

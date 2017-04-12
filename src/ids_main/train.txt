@@ -1,1 +1,2 @@
-UPDATE table SET a=b
+SELECT * from products WHERE id=0 and category=Mouse
+INSERT INTO products(id, name, price, category) VALUES(0,'Redragon M601 Gaming Mouse',12.49,'Mouse')
