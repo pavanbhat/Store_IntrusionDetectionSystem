@@ -7,6 +7,7 @@
 import os
 import socket
 
+from dominate.tags import tr
 from template_detect import MatchTemplate
 from template_train import TrainTemplate
 
@@ -49,9 +50,6 @@ class IDS:
             self.appPort = int(input("Enter Application port number: "))
             self.sock.bind((self.appIP, self.appPort))
 
-            print("waiting for connection")
-            self.sock.listen(1)
-            self.app, self.appAddr = self.sock.accept()
             print("Successfull connected to application")
         except Exception as e:
             print("Connection failed")
@@ -64,19 +62,24 @@ class IDS:
     # Any SQL query wont be more than 2048 bytes.
     ###
     def recvParse(self):
+        print("waiting for connection")
+        self.sock.listen(1)
+        self.app, self.appAddr = self.sock.accept()
         queries = ""
         while True:
             tempQuery = self.app.recv(1024)
+            if not tempQuery:
+                break
             queries += tempQuery.decode('utf-8')
             if len(tempQuery) != 1024:
                 break
-        print(queries.split(';'))
+        if len(queries) > 0: print(queries.split(';'))
         return queries.split(';')
 
     def sendToApp(self, data):
         print("Sending result back to application")
         print("result: ", data)
-        self.app.send(bytes(data))
+        self.app.send(bytes(data, 'ascii'))
 
     ###
     # callQueryNode function passes the query to the query parser.
@@ -103,11 +106,14 @@ class IDS:
 
         while True:
             transactionQueries = self.recvParse()
-            result = True
+            result = ""
             for query in transactionQueries:
+                if query == '':
+                    continue
                 if not self.detect(query):
-                    result = False
-                    break
+                    result += "False;"
+                else:
+                    result += "True;"
             self.sendToApp(result)
 
 

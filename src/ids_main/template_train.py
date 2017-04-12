@@ -11,8 +11,9 @@ class TrainTemplate:
             data = f.read().split("\n")
 
         for query in data:
-            if len(query.split()) == 0 and self.queryPrevTrained(query):
+            if len(query.split()) <= 1 or self.queryPrevTrained(query):
                 continue
+            print(query)
             key = query.split()[0].upper()
             if key in self.template:
                 self.template[key].parse(query)
