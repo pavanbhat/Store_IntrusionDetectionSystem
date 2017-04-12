@@ -7,11 +7,11 @@ class ConnectToIDS:
         '''
         Default constructor that initializes the host and port for establishing a connection to IDS.
         '''
-        self.host = '127.0.0.1'
-        self.port = 5555
+        self.host = input("Enter IDS hostname, Eg:127.0.0.1:")
+        self.port = int(input("Enter IDS port number, Eg:8000:"))
         self.sock = None
 
-    def connect_to_ids(self, host='129.21.122.59', port=8000, message="None", queries=None):
+    def connect_to_ids(self, message="None", queries=None):
         '''
         
         :param host: IP address of the IDS 
@@ -20,7 +20,7 @@ class ConnectToIDS:
         '''
         # if self.sock is None:
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.connect((host, port))
+        self.sock.connect((self.host, self.port))
         print("Sending queries to IDS...")
         flag = True
         while flag:
@@ -32,22 +32,28 @@ class ConnectToIDS:
                 break
         received_data = received_data.split(";")
         # print("obj data: ", obj)
-        # print("queries data: ", queries[0])
+        print(received_data)
+        print("queries data: ", queries)
         success_queries = ""
         filtered_queries = ""
         insert_queries = ""
-        if len(queries) == len(received_data):
-            for check in range(len(received_data)):
+
+        received_data = received_data[:len(queries)]
+
+        for check in range(len(received_data)):
+            if received_data[check].__eq__(""):
+                continue
+            if "False" not in received_data:
                 if received_data[check].__eq__("True") and queries[check].find("INSERT") != -1:
                     insert_queries += queries[check] + "\n"
                 elif received_data[check].__eq__("True") and queries[check].find("INSERT") == -1:
                     success_queries += queries[check] + "\n"
-                else:
-                    filtered_queries += queries[check] + "\n"
+            else:
+                filtered_queries += queries[check] + "\n"
 
-        # print("Inserted queries: ", insert_queries)
-        # print("Success queries: ", success_queries)
-        # print("Filtered queries: ", filtered_queries)
+        print("Inserted queries: ", insert_queries)
+        print("Success queries: ", success_queries)
+        print("Filtered queries: ", filtered_queries)
 
         # self.sock.close()
         return success_queries, filtered_queries, insert_queries
