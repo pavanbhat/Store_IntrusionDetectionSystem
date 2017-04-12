@@ -45,7 +45,10 @@ class IDS:
     def connectToApplication(self):
         try:
             # Bind the socket to the port
-            self.sock.bind(('127.0.0.1', 8001))
+            self.appIP = str(input("Enter Application IP address: "))
+            self.appPort = int(input("Enter Application port number: "))
+            self.sock.bind((self.appIP, self.appPort))
+
             print("waiting for connection")
             self.sock.listen(1)
             self.app, self.appAddr = self.sock.accept()
@@ -62,7 +65,7 @@ class IDS:
     ###
     def recvParse(self):
         queries = self.app.recv(2048)
-        queries = bytearray(str(queries), "ascii")
+        queries = queries.decode('utf-8')
         print(queries)
         return queries.split(';')
 
@@ -106,5 +109,5 @@ if __name__ == '__main__':
     ids = IDS()
     ids.train()
     ids.detect()
-    ids.connectToApplication()
-    ids.start()
+    #ids.connectToApplication()
+    #ids.start()
