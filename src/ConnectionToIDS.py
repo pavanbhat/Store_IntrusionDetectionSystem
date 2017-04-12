@@ -20,11 +20,13 @@ class ConnectToIDS:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((host, port))
         print("Sending queries to IDS...")
-        while message != 'q':
+        while True:
             message1 = bytearray(message, "ascii")
             sock.send(message1)
             data = sock.recv(1024)
-            message = input("->")
+            # message = input("->")
+            if not data:
+                break
 
         received_data = message.split(";")
         # filtered_queries =
