@@ -16,6 +16,8 @@ class IDS:
     def __init__(self):
         self.trainTemplate = TrainTemplate()
         self.template = None
+        # Create a TCP/IP socket
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def train(self, path="train.txt"):
         if not os.path.exists(path):
@@ -42,16 +44,15 @@ class IDS:
     ###
     def connectToApplication(self):
         try:
-            # Create a TCP/IP socket
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             # Bind the socket to the port
-            sock.bind(('127.0.0.1', 8000))
+            self.sock.bind(('127.0.0.1', 8001))
             print("waiting for connection")
-            sock.listen(1)
-            self.app, self.appAddr = sock.accept()
+            self.sock.listen(1)
+            self.app, self.appAddr = self.sock.accept()
             print("Successfull connected to application")
-        except:
+        except Exception as e:
             print("Connection failed")
+            print("ERROR:", str(e))
             return False
         return True
 
@@ -61,6 +62,8 @@ class IDS:
     ###
     def recvParse(self):
         queries = self.app.recv(2048)
+        queries = bytearray(str(queries), "ascii")
+        print(queries)
         return queries.split(';')
 
     def sendToApp(self, data):
@@ -101,7 +104,7 @@ class IDS:
 
 if __name__ == '__main__':
     ids = IDS()
-    # ids.train()
-    # ids.detect()
+    ids.train()
+    ids.detect()
     ids.connectToApplication()
-    # ids.start()
+    ids.start()
