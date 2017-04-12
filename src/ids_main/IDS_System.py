@@ -64,8 +64,12 @@ class IDS:
     # Any SQL query wont be more than 2048 bytes.
     ###
     def recvParse(self):
-        queries = self.app.recv(2048)
-        queries = queries.decode('utf-8')
+        queries = ""
+        while True:
+            tempQuery = self.app.recv(1024)
+            queries += tempQuery.decode('utf-8')
+            if len(tempQuery) != 1024:
+                break
         print(queries.split(';'))
         return queries.split(';')
 
