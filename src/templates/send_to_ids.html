@@ -55,6 +55,12 @@
     {% if messages %}
     <ul class=flashes>
         {% for message in messages %}
+        {% if message == 'YES' %}
+        <center><font size="18" color="red"> Malicious activity Detected!!! </font></center>
+        {% endif %}
+        {% if message == 'NO' %}
+        <center><font size="18" color="green"> Normal Activity</font></center>
+        {% endif %}
         <li>{{ message }}</li>
         {% endfor %}
     </ul>

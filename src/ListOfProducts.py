@@ -16,3 +16,6 @@ class ListOfProducts:
                 if self.data_send[i].pid == product_id:
                     del self.data_send[i]
                     break
+
+    def remove_all_data(self):
+        self.data_send = []

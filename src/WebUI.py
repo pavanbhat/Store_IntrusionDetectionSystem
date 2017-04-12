@@ -169,20 +169,20 @@ def send_to_ids():
     global obj, queries, ids, database
     for i in obj.get_data():
         queries.add_query("INSERT", i, "products")
-    host = input("Please enter the host address: (Eg: 127.0.0.1)")
-    port = input("Please enter the port number: (Eg: 5555)")
 
     message = ""
     for j in queries.get_list_of_queries():
         message += j
     # print(message)
 
-    success_queries, filtered_queries, insert_queries = ids.connect_to_ids(host, int(port), message,
+    success_queries, filtered_queries, insert_queries = ids.connect_to_ids(message,
                                                                            queries.get_list_of_queries())
 
-    if filtered_queries == None:
+    if not filtered_queries:
+        flash("NO")
         flash("Filtered Queries: None")
     else:
+        flash("YES")
         flash("Filtered Queries: \n")
         fq = filtered_queries.split(";")
         print("Printing fq: ", fq)
@@ -221,6 +221,8 @@ def send_to_ids():
     print(send_queries)
     if filtered_queries == "":
         database.make_connection(store, send_queries)
+    obj.remove_all_data()
+    queries.remove_all_query()
     return render_template("send_to_ids.html")
 
 
