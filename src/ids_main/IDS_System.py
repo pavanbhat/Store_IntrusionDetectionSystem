@@ -4,11 +4,12 @@
 #
 ###
 
-import socket
-import sys
 import os
-from template_train import TrainTemplate
+import socket
+
 from template_detect import MatchTemplate
+from template_train import TrainTemplate
+
 
 class IDS:
 
@@ -44,7 +45,7 @@ class IDS:
             # Create a TCP/IP socket
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             # Bind the socket to the port
-            sock.bind(('192.168.0.13', 8000))
+            sock.bind(('127.0.0.1', 8000))
             print("waiting for connection")
             sock.listen(1)
             self.app, self.appAddr = sock.accept()
@@ -100,7 +101,7 @@ class IDS:
 
 if __name__ == '__main__':
     ids = IDS()
-    ids.train()
-    ids.detect()
-    # # ids.connectToApplication()
+    # ids.train()
+    # ids.detect()
+    ids.connectToApplication()
     # ids.start()

@@ -6,6 +6,7 @@ user_db = SQLAlchemy()
 
 class StoreUser(user_db.Model):
     __tablename__ = 'store_users'
+    __bind_key__ = 'store_users'
     uid = user_db.Column(user_db.Integer, primary_key=True)
     email = user_db.Column(user_db.String(60), unique=True)
     username = user_db.Column(user_db.String(20), unique=True)

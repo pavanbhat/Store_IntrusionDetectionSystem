@@ -1,35 +1,32 @@
 # All imports here
-import psycopg2 as pg
-from flask_sqlalchemy import SQLAlchemy
-
-import WebUI
-
-WebUI.app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:@localhost/store'
-db = SQLAlchemy(WebUI.app)
+from ProductList import ProductList, user_db
 
 
 class ConnectionToDatabase:
-    def make_connection(self, list_of_products=None):
-        conn = pg.connect("dbname='postgres' user='postgres' password='secret' host='localhost'")
-        cursor = conn.cursor()
-        cursor.execute("INSERT INTO products(id, name, price, category) VALUES(4, 'Red Dragon Mouse', 19, 'Mouse');")
-        conn.commit()
-        cursor.execute("select * from products")
-        self.printIfExecuted(cursor)
+    def make_connection(self, store, list_of_products=None):
+        user_db.create_all(bind=['products'])
+        if list_of_products != None:
+            for i in list_of_products:
+                product = i.split(',')
+                print(product)
+                enter_product = ProductList(uid=product[0], name=product[1], price=product[2], category=product[3])
+                user_db.session.add(enter_product)
+                user_db.session.commit()
+        self.printIfExecuted(list_of_products)
 
-    def printIfExecuted(self, cursor):
-        rows = cursor.fetchall()
-        for i in rows:
+    def printIfExecuted(self, list_of_products):
+        print("Queried the following products to the database")
+        for i in list_of_products:
             print(i)
 
+#
+# def main():
+#     create_conn = ConnectionToDatabase()
+#     create_conn.make_connection()
 
-def main():
-    create_conn = ConnectionToDatabase()
-    create_conn.make_connection()
 
-
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
 
 # # Getting data by their colummn names
 # cur2 = conn.cursor(cursor_factory=ex.DictCursor)

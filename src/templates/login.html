@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-
+<html>
 {% block title %}
 Intrusion Detection on Databases
 {% endblock %}
@@ -37,22 +37,21 @@ Intrusion Detection on Databases
                     {{form.login(class="btn btn-primary btn-small btn-block")}}
                 </form>
             </left>
+            <center>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </center>
         </fieldset>
     </center>
-    <center>
-        <div class="error_messages">
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul class=flashes>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
-        </div>
-    </center>
-</div>
 
+</div>
 {% endblock %}
 </body>
+</html>

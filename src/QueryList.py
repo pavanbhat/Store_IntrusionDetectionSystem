@@ -8,7 +8,7 @@ class QueryList:
         '''
         
         '''
-        list_of_queries = []
+        self.list_of_queries = []
 
     def get_list_of_queries(self):
         '''
@@ -28,11 +28,11 @@ class QueryList:
         if query.upper() == "SELECT" and table != "":
             query = "SELECT * from " + table + " WHERE id=" + product.pid + " and category=" + product.category + ";"
         elif query.upper() == "INSERT" and table != "":
-            query = "INSERT INTO " + table + "(id, name, price, category) VALUES(" + product.pid + " , '" + product.name + "', " + product.price + ", '" + product.category + "');"
+            query = "INSERT INTO " + table + "(id, name, price, category) VALUES(" + product.pid + ",'" + product.name + "'," + product.price + ",'" + product.category + "');"
         elif query.upper() == "DELETE" and table == "":
             query = "DELETE FROM cart WHERE product_id=" + product + ";"
-        print(query)
-        # self.list_of_queries.append(query)
+        print(self.get_list_of_queries())
+        self.list_of_queries.append(str(query))
 
     def remove_query(self, query, product, table):
         '''

@@ -5,6 +5,8 @@ import os
 from flask import Flask, redirect, render_template, flash, request, json, url_for
 from flask_bootstrap import Bootstrap
 
+from ConnectionToDatabase import ConnectionToDatabase
+from ConnectionToIDS import *
 from ListOfProducts import *
 from Product import *
 from QueryList import *
@@ -12,9 +14,15 @@ from Security import RegisterForm, LoginForm
 # Importing support classes
 from StoreUser import StoreUser, user_db
 
+
 # Flask App
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:secret@localhost/user_database'
+databases = {
+    'store_users': 'postgresql://postgres:secret@localhost/user_database',
+    'products': 'postgresql://postgres:secret@localhost/store'
+}
+app.config['SQLALCHEMY_BINDS'] = databases
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:secret@localhost/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 bootstrap = Bootstrap(app)
 user_db.init_app(app)
@@ -37,7 +45,7 @@ def register(user=None):
     :return: Call to the home page
     '''
     form = RegisterForm()
-    user_db.create_all()
+    user_db.create_all(bind=['store_users'])
     if request.method == "POST":
         if form.validate_on_submit():
             user_validation = StoreUser.query.filter_by(username=form.username.data).first()
@@ -157,9 +165,41 @@ def send_to_ids():
     :param username:
     :return:
     '''
-    global obj, queries
+    global obj, queries, ids, database
     for i in obj.get_data():
         queries.add_query("INSERT", i, "products")
+    host = input("Please enter the host address: (Eg: 127.0.0.1)")
+    port = input("Please enter the port number: (Eg: 5555)")
+    message = ""
+    for j in queries.get_list_of_queries():
+        message += j
+    print(message)
+    ids.connect_to_ids(host, int(port), message)
+    # success_queries, filtered_queries, insert_queries = ids.connect_to_ids(host, int(port), message)
+    # if filtered_queries == None:
+    #     flash("Filtered Queries: None")
+    # else:
+    #     flash("Filtered Queries: ")
+    #     for j in filtered_queries:
+    #         flash(j)
+    #
+    # if success_queries == None:
+    #     flash("Successful Queries: None")
+    # else:
+    #     flash("Successful Queries: ")
+    #     for j in success_queries:
+    #         flash(j)
+    insert_queries = ["INSERT INTO products(id,name,price,category) VALUES(1,'Google Nexus',650,'Mobile');"]
+    send_queries = []
+    for data in insert_queries:
+        values = str(data[45:])
+        if "VALUES" in values:
+            temp = values[7:]
+            send_queries.append(temp[:len(temp) - 2])
+    database.make_connection(store, send_queries)
+
+
+
     return render_template("send_to_ids.html")
 
 
@@ -175,8 +215,10 @@ def store(username=None):
 
 # Loads the Flask application
 if __name__ == '__main__':
-    global obj, queries
+    global obj, queries, ids, database
     obj = ListOfProducts()
     queries = QueryList()
+    ids = ConnectToIDS()
+    database = ConnectionToDatabase()
     app.secret_key = os.urandom(12)
     app.run(debug="True")

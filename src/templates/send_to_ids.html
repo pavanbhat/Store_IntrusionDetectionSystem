@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Intrusion Detection Phase</title>
+    <link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -47,6 +48,18 @@
 <h2>Sending and Retrieving Data in IDS</h2>
 <div id="progress">
     <div id="bar"></div>
+</div>
+<h1>Dashboard:</h1>
+<div id="dashboard">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
 </div>
 </body>
 </html>

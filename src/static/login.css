@@ -1,11 +1,6 @@
-html{
-    padding: 0px;
-    background:#AFEEEE;
-}
-
 h1 {
     color: white;
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .btn:hover {
@@ -14,12 +9,8 @@ h1 {
 
 body {
     font-family: 'Open Sans', sans-serif;
-
-    background-image: url(images/dataSS.jpg);
-    padding:20px;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-
+    padding: 20px;
+    background: url(images/dataSS.jpg) no-repeat;
 }
 
 .flashes {
@@ -35,7 +26,7 @@ body {
 }
 
 fieldset {
-    padding:20px;
+    padding: 20px;
     width: 50%;
 
 }
@@ -43,7 +34,7 @@ fieldset {
 .form-group label {
     font-family: 'Open Sans', sans-serif;
     display: block;
-    color:black;
+    color: black;
     text-transform: uppercase;
     text-align: start;
     font-weight: bold;

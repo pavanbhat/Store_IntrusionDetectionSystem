@@ -1,0 +1,15 @@
+h1 {
+    font-family: 'Patua One', cursive;
+}
+
+.flashes {
+    background-color: burlywood;
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: large;
+    font-weight: bold;
+    text-decoration-color: orangered;
+    max-width: 325px;
+    margin: auto;
+    border: solid 2px indianred;
+}
