@@ -23,7 +23,7 @@ class ConnectToIDS:
         while message != 'q':
             message1 = bytearray(message, "ascii")
             sock.send(message1)
-            # data = sock.recv(1024)
+            data = sock.recv(1024)
             message = input("->")
 
         received_data = message.split(";")
