@@ -171,32 +171,54 @@ def send_to_ids():
         queries.add_query("INSERT", i, "products")
     host = input("Please enter the host address: (Eg: 127.0.0.1)")
     port = input("Please enter the port number: (Eg: 5555)")
+
     message = ""
     for j in queries.get_list_of_queries():
         message += j
-    print(message)
-    ids.connect_to_ids(host, int(port), message)
-    # success_queries, filtered_queries, insert_queries = ids.connect_to_ids(host, int(port), message)
-    # if filtered_queries == None:
-    #     flash("Filtered Queries: None")
-    # else:
-    #     flash("Filtered Queries: ")
-    #     for j in filtered_queries:
-    #         flash(j)
-    #
-    # if success_queries == None:
-    #     flash("Successful Queries: None")
-    # else:
-    #     flash("Successful Queries: ")
-    #     for j in success_queries:
-    #         flash(j)
-    insert_queries = ["INSERT INTO products(id,name,price,category) VALUES(1,'Google Nexus',650,'Mobile');"]
+    # print(message)
+
+    success_queries, filtered_queries, insert_queries = ids.connect_to_ids(host, int(port), message,
+                                                                           queries.get_list_of_queries())
+
+    if filtered_queries == None:
+        flash("Filtered Queries: None")
+    else:
+        flash("Filtered Queries: \n")
+        fq = filtered_queries.split(";")
+        print("Printing fq: ", fq)
+        for i in fq:
+            if not i.__eq__("\n"):
+                i += "; \n"
+                flash(i)
+    flash("\n")
+    if success_queries == None:
+        flash("Successful Queries: None")
+    else:
+        flash("Successful Queries: \n")
+        sq = success_queries.split(";")
+        for j in sq:
+            if not j.__eq__("\n"):
+                j += "; \n"
+                flash(j)
+    flash("\n")
+    if insert_queries == None:
+        flash("Successfully Inserted Queries: None")
+    else:
+        flash("Successfully Inserted Queries: \n")
+        iq = insert_queries.split(";")
+        for k in iq:
+            if not k.__eq__("\n"):
+                k += "; \n"
+                flash(k)
+    flash("\n")
     send_queries = []
-    for data in insert_queries:
-        values = str(data[45:])
-        if "VALUES" in values:
-            temp = values[7:]
-            send_queries.append(temp[:len(temp) - 2])
+    query_values = insert_queries.split(";")
+    for index in range(len(query_values) - 1):
+        data = query_values[index]
+        if not data.__eq__("\n"):
+            values = data[data.find("S(") + 2: data.rfind(")")]
+            send_queries.append(values)
+    print(send_queries)
     database.make_connection(store, send_queries)
 
 

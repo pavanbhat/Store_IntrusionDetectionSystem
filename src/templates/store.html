@@ -11,9 +11,10 @@
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
+
     {% block scripts %}
     <script>
-        var pid = 0;
+        var pid = Math.floor((1 + Math.random()) * 0x10000);
         var pid_list = [];
         var add_product = function (id) {
             var product_id = 0;
@@ -82,7 +83,7 @@
             josn_data = {"pid": product_id, "name": productName, "price": price, "category": category};
             do_post(josn_data);
             get_post();
-            pid++;
+//            pid++;
         };
 
         var do_post = function (json_data) {
@@ -180,7 +181,6 @@
                  }*/
             });
         }
-
 
     </script>
     {% endblock %}

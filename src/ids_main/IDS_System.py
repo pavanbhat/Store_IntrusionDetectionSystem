@@ -94,7 +94,7 @@ class IDS:
         while not validConnection:
             print("Connecting to Application")
             validConnection = ids.connectToApplication()
-            print("Attemt failed, trying again!")
+            print("Attempt failed, trying again!")
 
         self.start()
 
