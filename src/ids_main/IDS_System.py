@@ -7,7 +7,7 @@
 import os
 import socket
 
-from dominate.tags import tr
+# from dominate.tags import tr
 from template_detect import MatchTemplate
 from template_train import TrainTemplate
 
