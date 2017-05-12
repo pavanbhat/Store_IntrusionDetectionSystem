@@ -1,5 +1,9 @@
 from keywords import Keyword
 
+###
+# TrainTemplate class parses the complete query
+# and builds the model
+###
 class TrainTemplate:
 
     def __init__(self):
@@ -20,6 +24,8 @@ class TrainTemplate:
                 self.template[key] = self.keyword.getKeyword(key)
                 self.template[key].parse(query)
 
+    # Check if the qquery was previously trained
+    # Optimization to avoid previous trained queries
     def queryPrevTrained(self, query):
         key = query.split()[0].upper()
         queryTemplate = self.keyword.getKeyword(key)

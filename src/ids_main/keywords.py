@@ -3,6 +3,9 @@ from insert import INSERT
 from delete import DELETE
 from update import UPDATE
 
+###
+# Keyword class takes care of objects of all keywords in SQLquery
+###
 class Keyword:
 
     def __init__(self):

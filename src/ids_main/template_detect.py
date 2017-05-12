@@ -1,5 +1,9 @@
 from keywords import Keyword
 
+###
+# MatchTemplate class checks if the new query is valid
+# or not by looking at the model.
+###
 class MatchTemplate:
 
     def __init__(self, template):

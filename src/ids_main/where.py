@@ -1,11 +1,17 @@
 import re
 
+###
+# Parser for WHERE part of SQL query
+###
 class WHERE:
 
     def __init__(self):
         self.attributes = []
         self.corrupted = False
 
+    ###
+    # parses the query with WHERE data
+    ###
     def parse(self, queryData):
         # TODO
         # Detect multiple select statement and handle

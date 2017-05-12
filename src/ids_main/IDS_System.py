@@ -12,14 +12,28 @@ from template_detect import MatchTemplate
 from template_train import TrainTemplate
 
 
+'''
+Intrusion Detection System main controlling class
+This class trains the system using train log file 
+and detects the newly arriving transaction as malicious or not
+'''
 class IDS:
 
+
+    '''
+    This method initiates the IDS system
+    '''
     def __init__(self):
         self.trainTemplate = TrainTemplate()
         self.template = None
         # Create a TCP/IP socket
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    '''
+    train method takes the path to the train transaction log.
+    By default it takes the path as current directory and file
+    "train.txt".
+    '''
     def train(self, path="train.txt"):
         if not os.path.exists(path):
             print("Training file not found!")
@@ -28,6 +42,11 @@ class IDS:
         self.template = self.trainTemplate.getTemplate()
         return True
 
+    ###
+    # detect method takes the query which is to be checked with the system trained
+    # previously. This passes the query to matching with the template, if the match is found
+    # then it is malicious so it returns True else False
+    ###
     def detect(self, query="SELECT * from products WHERE id=0 and category=Laptop"):
         if self.template is None:
             print("Template is not trained, please train the template first. Thanks!")
@@ -63,8 +82,9 @@ class IDS:
     ###
     def recvParse(self):
         print("waiting for connection")
-        self.sock.listen(1)
+        self.sock.listen(15)
         self.app, self.appAddr = self.sock.accept()
+
         queries = ""
         while True:
             tempQuery = self.app.recv(1024)
@@ -91,7 +111,9 @@ class IDS:
         #query = Query(query)
         pass
 
-
+    ###
+    # this method connects to the IDS and starts the IDS
+    ###
     def run(self):
         validConnection = False
         while not validConnection:
@@ -101,6 +123,11 @@ class IDS:
 
         self.start()
 
+    ###
+    # start method starts the IDS.
+    # Receives the query which should be checked
+    # and saves the result and sends back to the application.
+    ###
     def start(self):
         self.train()
 

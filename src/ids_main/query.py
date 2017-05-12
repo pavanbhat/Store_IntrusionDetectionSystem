@@ -30,8 +30,6 @@ class Query():
         return self.id
 
     '''
-    TODO
-
     Parser the sql query and updates the class variables.
     '''
     def parse(self, query):

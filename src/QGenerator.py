@@ -87,18 +87,23 @@ class QGenerator:
                 query = int(random.uniform(0, 2)) # Changes to be made here
 
                 if query == 0:
-                    print(' SELECT * from products where category = "' + self.Category[int(random.uniform(0, 10))] + '";', end=" \n")
+                    print('SELECT * from products where category = "' + self.Category[int(random.uniform(0, 10))] \
+                          + '" and id = ' + str(self.userid) + ';', end=" \n")
+                    self.userid += 1
                 elif query == 1:
-                    print(' "INSERT INTO products(ID, USERID, NAME, PRICE, ADDRESS, CATEGORY) VALUES(' + str(id) + ", " + str(self.userid) + ", '" + (self.Names[int(random.uniform(0, 10))] + str(id)) + "', " + str(round(random.uniform(0, 1000), 2)) + ', \'' + self.UserAddress[int(random.uniform(0, 10))] + '\'' + ', \'' + self.Category[int(random.uniform(0, 10))] + '\');"', end=" \n")
+                    print('INSERT INTO products(id, name, price, category) VALUES(' + str(self.userid) \
+                          + ", '" + (self.Names[int(random.uniform(0, 10))] + str(id)) \
+                          + "', " + str(round(random.uniform(0, 1000), 2)) + ', \'' \
+                          + ', \'' + self.Category[int(random.uniform(0, 10))] + '\');', end=" \n")
                     self.userid += 1
                 elif query == 2:
-                    print(' SELECT * from products where category = "' + self.Category[int(random.uniform(0, 10))] + '"', end=" ")
+                    print('SELECT * from products where category = "' + self.Category[int(random.uniform(0, 10))] + '"', end=" ")
                 elif query == 3:
-                    print(' SELECT * from products where category = "' + self.Category[int(random.uniform(0, 10))] + '"', end=" ")
+                    print('SELECT * from products where category = "' + self.Category[int(random.uniform(0, 10))] + '"', end=" ")
                 elif query == 4:
-                    print(' SELECT * from products where category = "' + self.Category[int(random.uniform(0, 10))] + '"', end=" ")
+                    print('SELECT * from products where category = "' + self.Category[int(random.uniform(0, 10))] + '"', end=" ")
                 else:
-                    print(' SELECT * from products where category = "' + self.Category[int(random.uniform(0, 10))] + '"', end=" ")
+                    print('SELECT * from products where category = "' + self.Category[int(random.uniform(0, 10))] + '"', end=" ")
 
 def main():
     '''

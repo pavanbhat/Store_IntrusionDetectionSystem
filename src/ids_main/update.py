@@ -1,10 +1,16 @@
 from setvalue import SETvalue
 
+
+###
+# Update class takes care of parsing UPDATE part of SQL query
 class UPDATE:
 
     def __init__(self):
         self.set = []
 
+    ###
+    # this method parses the update part of the query
+    ###
     def parse(self, query):
         query = query.split()
 
@@ -38,6 +44,9 @@ class UPDATE:
             index += 1
         self.set[setIndex].poplateWhere(whereData)
 
+    ###
+    # Overriding == operator
+    ###
     def __eq__(self, other):
         for curr in self.set:
             if curr in other.set:

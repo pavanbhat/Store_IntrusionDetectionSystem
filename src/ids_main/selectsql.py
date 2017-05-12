@@ -1,10 +1,14 @@
 from From import FROM
 
+###
+# SELECT class parses and stores the graph of all SELECT related data.
+###
 class SELECT:
 
     def __init__(self):
         self.FROM = []
 
+    # this method parses the SQL query to extract SELECT related data
     def parse(self, query):
         # SELECT column1, column2, ...
         # FROM table_name
