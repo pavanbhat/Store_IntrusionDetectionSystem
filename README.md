@@ -1,6 +1,6 @@
 # Online Shopping Portal - Intrusion Detection System (IDS)
 
-Intrusion Detection System (IDS) is a Full Stack Web Application for monitoring a network for malicious activity or policy violations. Our team used the IDS on an online shopping portal to simulate the malicious activities being queried onto the database using different actions performed on the portal. 
+Intrusion Detection System (IDS) is a Full Stack Web Application for monitoring a network for malicious activity or policy violations. Our team used the IDS on an online shopping portal to simulate the malicious activities being queried onto the database using different actions performed on the portal. <a href="https://goo.gl/E3HEaF">Check out the documentation for further details!</a>
 
 <ul> <em>Actions such as</em>
   <li> Adding/Fetching a product on a shopping cart  - <strong>SELECT</strong> operation on the database </li>
